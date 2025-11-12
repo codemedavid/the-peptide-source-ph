@@ -134,7 +134,7 @@ INSERT INTO site_settings (id, value, type, description) VALUES
 ('contact_phone', '+1-800-PEPTIDE', 'text', 'Contact phone number'),
 ('min_order_amount', '25.00', 'number', 'Minimum order amount'),
 ('free_shipping_threshold', '150.00', 'number', 'Free shipping threshold'),
-('disclaimer', 'All peptides are sold for research purposes only. Not for human consumption.', 'text', 'Legal disclaimer');
+('disclaimer', 'RESEARCH USE ONLY: ALWAYS CONSULT A LICENSED HEALTHCARE PROFESSIONAL FOR PERSONALISED MEDICAL GUIDANCE', 'text', 'Legal disclaimer');
 
 -- Create indexes for better query performance
 CREATE INDEX idx_products_category ON products(category);

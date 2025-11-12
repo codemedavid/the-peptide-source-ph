@@ -55,9 +55,9 @@ const Hero: React.FC = () => {
             <p className="text-xs sm:text-sm md:text-base text-center text-gray-600 leading-relaxed">
               <span className="inline-flex items-center gap-1 md:gap-1.5">
                 <Shield className="w-4 h-4 md:w-5 md:h-5 text-teal-600" />
-                <strong className="text-teal-700">Research Use Only:</strong>
+                <strong className="text-teal-700">RESEARCH USE ONLY:</strong>
               </span>
-              {' '}All peptides are sold for research purposes only. Not for human consumption.
+              {' '}ALWAYS CONSULT A LICENSED HEALTHCARE PROFESSIONAL FOR PERSONALISED MEDICAL GUIDANCE
             </p>
           </div>
         </div>

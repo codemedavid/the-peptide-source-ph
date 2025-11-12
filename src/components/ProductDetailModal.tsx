@@ -123,7 +123,7 @@ const ProductDetailModal: React.FC<ProductDetailModalProps> = ({ product, onClos
               <div className="bg-blue-50 border border-blue-200 sm:border-2 rounded-lg sm:rounded-xl p-3 sm:p-4">
                 <p className="text-[10px] sm:text-xs text-blue-800 flex items-start gap-1.5 sm:gap-2">
                   <Shield className="w-3 h-3 sm:w-3.5 sm:h-3.5 md:w-4 md:h-4 mt-0.5 flex-shrink-0" />
-                  <span><strong>Research Use Only:</strong> This product is intended for research purposes only. Not for human consumption.</span>
+                  <span><strong>RESEARCH USE ONLY:</strong> ALWAYS CONSULT A LICENSED HEALTHCARE PROFESSIONAL FOR PERSONALISED MEDICAL GUIDANCE</span>
                 </p>
               </div>
             </div>
