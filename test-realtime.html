@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Real-Time Connection</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            background: white;
+            border-radius: 16px;
+            padding: 32px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        h1 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        .status {
+            padding: 16px;
+            border-radius: 8px;
+            margin: 16px 0;
+            font-weight: 600;
+        }
+        .success {
+            background: #d1fae5;
+            color: #065f46;
+            border-left: 4px solid #10b981;
+        }
+        .error {
+            background: #fee2e2;
+            color: #991b1b;
+            border-left: 4px solid #ef4444;
+        }
+        .warning {
+            background: #fef3c7;
+            color: #92400e;
+            border-left: 4px solid #f59e0b;
+        }
+        .info {
+            background: #dbeafe;
+            color: #1e40af;
+            border-left: 4px solid #3b82f6;
+        }
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 16px;
+        }
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        .log {
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 16px;
+            margin-top: 16px;
+            max-height: 300px;
+            overflow-y: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+        }
+        .log-entry {
+            margin: 4px 0;
+            padding: 4px 0;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        .timestamp {
+            color: #6b7280;
+            font-size: 12px;
+        }
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 16px;
+            margin: 8px 0;
+        }
+        label {
+            font-weight: 600;
+            color: #374151;
+            display: block;
+            margin-top: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 Real-Time Connection Tester</h1>
+        <p style="color: #6b7280;">Test if your Supabase real-time subscriptions are working correctly.</p>
+
+        <div id="configSection">
+            <label>Supabase URL:</label>
+            <input type="text" id="supabaseUrl" placeholder="https://your-project.supabase.co">
+            
+            <label>Supabase Anon Key:</label>
+            <input type="text" id="supabaseKey" placeholder="your-anon-key">
+            
+            <button onclick="testConnection()">🚀 Test Real-Time Connection</button>
+        </div>
+
+        <div id="status"></div>
+        
+        <div id="logs" class="log" style="display: none;">
+            <strong>Connection Log:</strong>
+            <div id="logEntries"></div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        let supabaseClient = null;
+        let subscription = null;
+
+        function log(message, type = 'info') {
+            const logsDiv = document.getElementById('logs');
+            const entriesDiv = document.getElementById('logEntries');
+            logsDiv.style.display = 'block';
+            
+            const entry = document.createElement('div');
+            entry.className = 'log-entry';
+            const timestamp = new Date().toLocaleTimeString();
+            entry.innerHTML = `<span class="timestamp">[${timestamp}]</span> ${message}`;
+            entriesDiv.appendChild(entry);
+            entriesDiv.scrollTop = entriesDiv.scrollHeight;
+        }
+
+        function showStatus(message, type) {
+            const statusDiv = document.getElementById('status');
+            statusDiv.className = `status ${type}`;
+            statusDiv.innerHTML = message;
+        }
+
+        async function testConnection() {
+            const url = document.getElementById('supabaseUrl').value.trim();
+            const key = document.getElementById('supabaseKey').value.trim();
+
+            // Clear previous logs
+            document.getElementById('logEntries').innerHTML = '';
+
+            if (!url || !key) {
+                showStatus('❌ Please enter both Supabase URL and Anon Key', 'error');
+                return;
+            }
+
+            log('🔌 Initializing Supabase client...');
+            
+            try {
+                supabaseClient = window.supabase.createClient(url, key);
+                log('✅ Supabase client created successfully', 'success');
+
+                showStatus('⏳ Testing connection... Please wait', 'info');
+
+                // Test database connection
+                log('📡 Testing database connection...');
+                const { data, error } = await supabaseClient.from('products').select('count').limit(1);
+                
+                if (error) {
+                    log(`❌ Database error: ${error.message}`, 'error');
+                    showStatus(`❌ Database Connection Failed: ${error.message}`, 'error');
+                    return;
+                }
+
+                log('✅ Database connection successful');
+
+                // Test real-time subscription
+                log('🔄 Setting up real-time subscription for products table...');
+                
+                showStatus('⏳ Subscribing to real-time updates...', 'info');
+
+                subscription = supabaseClient
+                    .channel('test_products_changes')
+                    .on('postgres_changes', 
+                        { event: '*', schema: 'public', table: 'products' }, 
+                        (payload) => {
+                            log(`🎉 Real-time event received: ${payload.eventType}`, 'success');
+                            console.log('Real-time payload:', payload);
+                        }
+                    )
+                    .subscribe((status) => {
+                        log(`Subscription status: ${status}`);
+                        
+                        if (status === 'SUBSCRIBED') {
+                            log('✅ Successfully subscribed to real-time updates!', 'success');
+                            showStatus(`
+                                ✅ <strong>Real-Time is Working!</strong><br><br>
+                                Your connection is properly configured.<br><br>
+                                <strong>Next Steps:</strong><br>
+                                1. Go to Supabase Dashboard → Database → Replication<br>
+                                2. Make sure "products" table has replication enabled<br>
+                                3. Try editing a product in your admin panel<br>
+                                4. Watch for real-time events in the log below
+                            `, 'success');
+                        } else if (status === 'CHANNEL_ERROR') {
+                            log('❌ Subscription error', 'error');
+                            showStatus(`
+                                ❌ <strong>Real-Time Subscription Failed</strong><br><br>
+                                Possible causes:<br>
+                                • Real-time not enabled on Supabase<br>
+                                • Invalid credentials<br>
+                                • Network/firewall blocking WebSocket<br><br>
+                                Check the log below for details.
+                            `, 'error');
+                        }
+                    });
+
+            } catch (err) {
+                log(`❌ Error: ${err.message}`, 'error');
+                showStatus(`❌ Connection Error: ${err.message}`, 'error');
+            }
+        }
+
+        // Try to load env values if available
+        window.addEventListener('load', () => {
+            // Check if running in dev environment
+            log('📋 Ready to test. Enter your Supabase credentials above.');
+        });
+    </script>
+</body>
+</html>
+

@@ -300,7 +300,14 @@ const AdminDashboard: React.FC = () => {
   // Form View (Add/Edit)
   if (currentView === 'add' || currentView === 'edit') {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50">
+      <>
+        {managingVariationsFor && (
+          <VariationManager
+            product={managingVariationsFor}
+            onClose={() => setManagingVariationsFor(null)}
+          />
+        )}
+        <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50">
         <div className="bg-white/90 backdrop-blur-sm shadow-lg border-b-2 border-blue-100">
           <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8">
             <div className="flex items-center justify-between h-14 md:h-16 gap-2">
@@ -317,6 +324,16 @@ const AdminDashboard: React.FC = () => {
                 </h1>
               </div>
               <div className="flex space-x-2 md:space-x-3">
+                {currentView === 'edit' && editingProduct && (
+                  <button
+                    type="button"
+                    onClick={() => setManagingVariationsFor(editingProduct)}
+                    className="hidden sm:inline-flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 border-2 border-purple-300 text-purple-700 hover:bg-purple-50 rounded-lg md:rounded-xl text-xs md:text-sm font-semibold transition-all"
+                  >
+                    <Layers className="h-3 w-3 md:h-4 md:w-4" />
+                    Manage Sizes
+                  </button>
+                )}
                 <button onClick={handleCancel} className="px-2 md:px-4 py-1.5 md:py-2 border-2 border-gray-300 hover:border-gray-400 rounded-lg md:rounded-xl hover:bg-gray-50 transition-all flex items-center gap-1 md:gap-2 text-xs md:text-sm">
                   <X className="h-3 w-3 md:h-4 md:w-4" />
                   <span className="hidden sm:inline">Cancel</span>
@@ -580,13 +597,21 @@ const AdminDashboard: React.FC = () => {
           </div>
         </div>
       </div>
+      </>
     );
   }
 
   // Products List View
   if (currentView === 'products') {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50">
+      <>
+        {managingVariationsFor && (
+          <VariationManager
+            product={managingVariationsFor}
+            onClose={() => setManagingVariationsFor(null)}
+          />
+        )}
+        <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50">
         <div className="bg-white/90 backdrop-blur-sm shadow-lg border-b-2 border-blue-100">
           <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8">
             <div className="flex items-center justify-between h-14 md:h-16">
@@ -818,6 +843,7 @@ const AdminDashboard: React.FC = () => {
           </div>
         </div>
       </div>
+      </>
     );
   }
 
