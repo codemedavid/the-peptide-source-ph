@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ArrowLeft, ShieldCheck, Package, CreditCard, Sparkles, Heart } from 'lucide-react';
+import { ArrowLeft, ShieldCheck, Package, CreditCard, Sparkles, Heart, Copy, Check } from 'lucide-react';
 import type { CartItem } from '../types';
 import { usePaymentMethods } from '../hooks/usePaymentMethods';
 
@@ -28,6 +28,7 @@ const Checkout: React.FC<CheckoutProps> = ({ cartItems, totalPrice, onBack }) =>
   // Payment
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('');
   const [notes, setNotes] = useState('');
+  const [copied, setCopied] = useState(false);
 
   React.useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -58,7 +59,7 @@ const Checkout: React.FC<CheckoutProps> = ({ cartItems, totalPrice, onBack }) =>
     }
   };
 
-  const handlePlaceOrder = () => {
+  const generateOrderDetails = () => {
     const paymentMethod = paymentMethods.find(pm => pm.id === selectedPaymentMethod);
     
     // Get current date and time
@@ -74,7 +75,7 @@ const Checkout: React.FC<CheckoutProps> = ({ cartItems, totalPrice, onBack }) =>
       hour12: true
     });
     
-    const orderDetails = `
+    let orderDetails = `
 🧪 MY PEPTIDE JOURNEY - NEW ORDER
 
 📅 ORDER DATE & TIME
@@ -107,11 +108,44 @@ Shipping Fee: To be discussed
 
 💳 PAYMENT METHOD
 ${paymentMethod?.name || 'N/A'}
-${paymentMethod ? `Account: ${paymentMethod.account_number}` : ''}
+${paymentMethod ? `Account: ${paymentMethod.account_number}` : ''}`;
 
+    if (notes.trim()) {
+      orderDetails += `\n\n📝 NOTES\n${notes}`;
+    }
 
-Please confirm this order. Thank you!
-    `.trim();
+    orderDetails += `\n\nPlease confirm this order. Thank you!`;
+    
+    return orderDetails.trim();
+  };
+
+  const handleCopyOrderDetails = async () => {
+    try {
+      const orderDetails = generateOrderDetails();
+      await navigator.clipboard.writeText(orderDetails);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 3000);
+    } catch (err) {
+      // Fallback for older browsers
+      const textArea = document.createElement('textarea');
+      textArea.value = generateOrderDetails();
+      textArea.style.position = 'fixed';
+      textArea.style.opacity = '0';
+      document.body.appendChild(textArea);
+      textArea.select();
+      try {
+        document.execCommand('copy');
+        setCopied(true);
+        setTimeout(() => setCopied(false), 3000);
+      } catch (fallbackErr) {
+        alert('Failed to copy. Please select and copy the text manually.');
+      }
+      document.body.removeChild(textArea);
+    }
+  };
+
+  const handlePlaceOrder = () => {
+    const orderDetails = generateOrderDetails();
 
     // Send order to Facebook Messenger
     const facebookPageId = '61573812453289';
@@ -137,11 +171,43 @@ Please confirm this order. Thank you!
               <span className="bg-gradient-to-r from-green-600 to-green-500 bg-clip-text text-transparent">Order Sent!</span>
               <Sparkles className="w-7 h-7 text-yellow-500" />
             </h1>
-            <p className="text-gray-600 mb-8 text-base md:text-lg leading-relaxed">
+            <p className="text-gray-600 mb-6 text-base md:text-lg leading-relaxed">
               Your order has been sent to our Facebook Messenger. 
               <Heart className="inline w-5 h-5 text-pink-500 mx-1" />
               We will confirm your order and send you the payment details shortly!
             </p>
+
+            {/* Copy Order Details Option */}
+            <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl p-6 mb-8 border-2 border-blue-100">
+              <p className="text-sm text-gray-700 mb-4 text-center">
+                <strong>Didn't receive the message?</strong> Copy your order details and send it manually:
+              </p>
+              <button
+                onClick={handleCopyOrderDetails}
+                className={`w-full py-3 rounded-xl font-bold text-base shadow-md hover:shadow-lg transform hover:scale-105 transition-all flex items-center justify-center gap-2 ${
+                  copied
+                    ? 'bg-gradient-to-r from-teal-400 to-teal-600 text-white'
+                    : 'bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white'
+                }`}
+              >
+                {copied ? (
+                  <>
+                    <Check className="w-5 h-5" />
+                    Order Details Copied!
+                  </>
+                ) : (
+                  <>
+                    <Copy className="w-5 h-5" />
+                    Copy Order Details
+                  </>
+                )}
+              </button>
+              {copied && (
+                <p className="text-sm text-teal-600 text-center mt-3 font-medium">
+                  ✓ Order details copied to clipboard! You can now paste it in Messenger or WhatsApp.
+                </p>
+              )}
+            </div>
             
             <div className="bg-gradient-to-r from-teal-50 to-emerald-50 rounded-2xl p-6 mb-8 text-left border-2 border-teal-100">
               <h3 className="font-bold text-gray-900 mb-4 flex items-center gap-2">
@@ -504,13 +570,35 @@ Please confirm this order. Thank you!
               />
             </div>
 
-            <button
-              onClick={handlePlaceOrder}
-              className="w-full bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:from-green-500 hover:via-green-600 hover:to-green-700 text-white py-3 md:py-4 rounded-2xl font-bold text-base md:text-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all flex items-center justify-center gap-2"
-            >
-              <ShieldCheck className="w-5 h-5 md:w-6 md:h-6" />
-              Send Order via Messenger
-            </button>
+            <div className="flex flex-col sm:flex-row gap-3">
+              <button
+                onClick={handlePlaceOrder}
+                className="flex-1 bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:from-green-500 hover:via-green-600 hover:to-green-700 text-white py-3 md:py-4 rounded-2xl font-bold text-base md:text-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all flex items-center justify-center gap-2"
+              >
+                <ShieldCheck className="w-5 h-5 md:w-6 md:h-6" />
+                Send Order via Messenger
+              </button>
+              <button
+                onClick={handleCopyOrderDetails}
+                className={`flex-1 py-3 md:py-4 rounded-2xl font-bold text-base md:text-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all flex items-center justify-center gap-2 ${
+                  copied
+                    ? 'bg-gradient-to-r from-teal-400 to-teal-600 text-white'
+                    : 'bg-gradient-to-r from-blue-400 to-blue-600 hover:from-blue-500 hover:to-blue-700 text-white'
+                }`}
+              >
+                {copied ? (
+                  <>
+                    <Check className="w-5 h-5 md:w-6 md:h-6" />
+                    Copied!
+                  </>
+                ) : (
+                  <>
+                    <Copy className="w-5 h-5 md:w-6 md:h-6" />
+                    Copy Order Details
+                  </>
+                )}
+              </button>
+            </div>
           </div>
 
           {/* Order Summary Sidebar */}
