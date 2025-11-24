@@ -78,14 +78,14 @@ const VariationManager: React.FC<VariationManagerProps> = ({ product, onClose })
     <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
       <div className="bg-white rounded-2xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden">
         {/* Header */}
-        <div className="bg-gradient-to-r from-teal-500 to-emerald-600 text-white p-6">
+        <div className="bg-gradient-to-r from-pink-500 to-pink-600 text-white p-6">
           <div className="flex items-center justify-between">
             <div>
               <h2 className="text-2xl font-bold flex items-center gap-2">
                 <Package className="w-6 h-6" />
                 Manage Size Variations
               </h2>
-              <p className="text-teal-100 mt-1">Product: {product.name}</p>
+              <p className="text-pink-100 mt-1">Product: {product.name}</p>
             </div>
             <button
               onClick={onClose}
@@ -108,34 +108,34 @@ const VariationManager: React.FC<VariationManagerProps> = ({ product, onClose })
             </h3>
 
             {!product.variations || product.variations.length === 0 ? (
-              <div className="bg-gray-50 border-2 border-dashed border-gray-300 rounded-xl p-8 text-center">
-                <Package className="w-12 h-12 text-gray-400 mx-auto mb-3" />
-                <p className="text-gray-600 font-medium">No size variations yet</p>
-                <p className="text-sm text-gray-500 mt-1">Add your first size option below</p>
+              <div className="bg-pink-50 border-2 border-dashed border-pink-300 rounded-xl p-6 md:p-8 text-center">
+                <Package className="w-10 h-10 md:w-12 md:h-12 text-pink-400 mx-auto mb-3" />
+                <p className="text-gray-700 font-medium text-sm md:text-base">No size variations yet</p>
+                <p className="text-xs md:text-sm text-gray-500 mt-1">Add your first size option below</p>
               </div>
             ) : (
               <div className="space-y-3">
                 {product.variations.map((variation) => (
                   <div
                     key={variation.id}
-                    className="bg-gradient-to-r from-teal-50 to-emerald-50 border-2 border-teal-200 rounded-xl p-4 flex items-center justify-between"
+                    className="bg-gradient-to-r from-pink-50 to-amber-50 border-2 border-pink-200 rounded-xl p-4 flex items-center justify-between"
                   >
-                    <div className="flex-1 grid grid-cols-4 gap-4">
+                    <div className="flex-1 grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
                       <div>
-                        <div className="text-xs text-gray-500 mb-1">Size Name</div>
-                        <div className="font-bold text-gray-900">{variation.name}</div>
+                        <div className="text-[10px] md:text-xs text-gray-500 mb-1">Size Name</div>
+                        <div className="font-bold text-gray-900 text-sm md:text-base">{variation.name}</div>
                       </div>
                       <div>
-                        <div className="text-xs text-gray-500 mb-1">Quantity</div>
-                        <div className="font-semibold text-gray-700">{variation.quantity_mg}mg</div>
+                        <div className="text-[10px] md:text-xs text-gray-500 mb-1">Quantity</div>
+                        <div className="font-semibold text-gray-700 text-sm md:text-base">{variation.quantity_mg}mg</div>
                       </div>
                       <div>
-                        <div className="text-xs text-gray-500 mb-1">Price</div>
-                        <div className="font-semibold text-teal-600">₱{variation.price.toLocaleString()}</div>
+                        <div className="text-[10px] md:text-xs text-gray-500 mb-1">Price</div>
+                        <div className="font-semibold text-pink-600 text-sm md:text-base">₱{variation.price.toLocaleString()}</div>
                       </div>
                       <div>
-                        <div className="text-xs text-gray-500 mb-1">Stock</div>
-                        <div className="font-semibold text-gray-700">{variation.stock_quantity} units</div>
+                        <div className="text-[10px] md:text-xs text-gray-500 mb-1">Stock</div>
+                        <div className="font-semibold text-gray-700 text-sm md:text-base">{variation.stock_quantity} units</div>
                       </div>
                     </div>
                     <button
@@ -156,17 +156,17 @@ const VariationManager: React.FC<VariationManagerProps> = ({ product, onClose })
           <div className="border-t-2 border-gray-200 pt-6">
             <button
               onClick={() => setIsAdding(!isAdding)}
-              className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-teal-500 to-emerald-600 hover:from-teal-600 hover:to-emerald-700 text-white rounded-lg font-medium transition-all shadow-md hover:shadow-lg mb-4"
+              className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-pink-500 to-pink-600 hover:from-pink-600 hover:to-pink-700 text-white rounded-lg font-medium transition-all shadow-md hover:shadow-lg mb-4"
             >
               <Plus className="w-5 h-5" />
               {isAdding ? 'Cancel' : 'Add New Size'}
             </button>
 
             {isAdding && (
-              <div className="bg-white border-2 border-teal-300 rounded-xl p-6 space-y-4">
+              <div className="bg-white border-2 border-pink-300 rounded-xl p-6 space-y-4">
                 <h4 className="font-bold text-gray-900 mb-4">New Size Variation</h4>
                 
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
                   <div>
                     <label className="block text-sm font-semibold text-gray-700 mb-2">
                       Size Name *
@@ -223,7 +223,7 @@ const VariationManager: React.FC<VariationManagerProps> = ({ product, onClose })
                   <button
                     onClick={handleAddVariation}
                     disabled={isProcessing}
-                    className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-teal-500 to-emerald-600 hover:from-teal-600 hover:to-emerald-700 text-white rounded-xl font-bold transition-all shadow-md hover:shadow-lg disabled:opacity-50"
+                    className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-pink-500 to-pink-600 hover:from-pink-600 hover:to-pink-700 text-white rounded-xl font-bold transition-all shadow-md hover:shadow-lg disabled:opacity-50"
                   >
                     <Save className="w-5 h-5" />
                     Save Variation
@@ -242,10 +242,10 @@ const VariationManager: React.FC<VariationManagerProps> = ({ product, onClose })
         </div>
 
         {/* Footer */}
-        <div className="bg-gray-50 border-t border-gray-200 p-4 flex justify-end">
+        <div className="bg-pink-50 border-t-2 border-pink-200 p-3 md:p-4 flex justify-end">
           <button
             onClick={onClose}
-            className="px-6 py-3 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-xl font-medium transition-all"
+            className="px-4 md:px-6 py-2 md:py-3 bg-gradient-to-r from-pink-500 to-pink-600 hover:from-pink-600 hover:to-pink-700 text-white rounded-lg md:rounded-xl font-medium transition-all shadow-md hover:shadow-lg transform hover:scale-105 text-sm md:text-base"
           >
             Close
           </button>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { MessageCircle, Shield, Heart, Sparkles } from 'lucide-react';
+import { MessageCircle, Shield, Heart, Crown } from 'lucide-react';
 
 const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
@@ -19,15 +19,15 @@ const Footer: React.FC = () => {
           <div className="flex items-center gap-3">
             <img 
               src="/logo.jpg" 
-              alt="KAEDRA" 
+              alt="The Peptide Source PH" 
               className="w-10 h-10 md:w-12 md:h-12 rounded-lg shadow-lg object-cover border-2 border-white/20"
             />
             <div className="text-center md:text-left">
               <div className="text-white font-bold text-sm md:text-base flex items-center gap-1.5">
-                KAEDRA
-                <Sparkles className="w-3 h-3 md:w-4 md:h-4 text-yellow-400" />
+                The Peptide Source PH
+                <Crown className="w-3 h-3 md:w-4 md:h-4 text-pink-400" />
               </div>
-              <div className="text-[10px] md:text-xs text-gray-300">Research-Grade Excellence</div>
+              <div className="text-[10px] md:text-xs text-gray-300">Premium Research Peptides</div>
             </div>
           </div>
 
@@ -52,7 +52,7 @@ const Footer: React.FC = () => {
             <p className="text-[10px] md:text-xs text-gray-300 flex items-center justify-center gap-1.5 flex-wrap">
               Made with 
               <Heart className="w-3 h-3 text-pink-400 animate-pulse" />
-              © {currentYear} KAEDRA. All rights reserved.
+              © {currentYear} The Peptide Source PH. All rights reserved.
             </p>
             <p className="text-[9px] md:text-[10px] text-gray-400 flex items-center justify-center gap-1">
               <Shield className="w-3 h-3 text-blue-400" />

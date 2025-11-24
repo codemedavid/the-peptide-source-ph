@@ -106,30 +106,30 @@ const SiteSettingsManager: React.FC = () => {
   return (
     <div className="bg-white rounded-xl shadow-sm p-6">
       <div className="flex items-center justify-between mb-6">
-        <h2 className="text-2xl font-noto font-semibold text-black">Site Settings</h2>
+        <h2 className="text-base md:text-xl lg:text-2xl font-bold bg-gradient-to-r from-pink-600 to-pink-700 bg-clip-text text-transparent">Site Settings</h2>
         {!isEditing ? (
           <button
             onClick={() => setIsEditing(true)}
-            className="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors duration-200 flex items-center space-x-2"
+            className="bg-gradient-to-r from-pink-500 to-pink-600 hover:from-pink-600 hover:to-pink-700 text-white px-3 md:px-4 py-1.5 md:py-2 rounded-lg md:rounded-xl transition-all duration-200 flex items-center space-x-1 md:space-x-2 shadow-md hover:shadow-lg transform hover:scale-105 text-xs md:text-sm"
           >
-            <Save className="h-4 w-4" />
+            <Save className="h-3 w-3 md:h-4 md:w-4" />
             <span>Edit Settings</span>
           </button>
         ) : (
           <div className="flex space-x-2">
             <button
               onClick={handleCancel}
-              className="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition-colors duration-200 flex items-center space-x-2"
+              className="bg-gray-500 text-white px-3 md:px-4 py-1.5 md:py-2 rounded-lg md:rounded-xl hover:bg-gray-600 transition-colors duration-200 flex items-center space-x-1 md:space-x-2 text-xs md:text-sm"
             >
-              <X className="h-4 w-4" />
+              <X className="h-3 w-3 md:h-4 md:w-4" />
               <span>Cancel</span>
             </button>
             <button
               onClick={handleSave}
               disabled={uploading}
-              className="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors duration-200 flex items-center space-x-2 disabled:opacity-50"
+              className="bg-gradient-to-r from-pink-500 to-pink-600 hover:from-pink-600 hover:to-pink-700 text-white px-3 md:px-4 py-1.5 md:py-2 rounded-lg md:rounded-xl transition-all duration-200 flex items-center space-x-1 md:space-x-2 disabled:opacity-50 shadow-md hover:shadow-lg transform hover:scale-105 text-xs md:text-sm"
             >
-              <Save className="h-4 w-4" />
+              <Save className="h-3 w-3 md:h-4 md:w-4" />
               <span>{uploading ? 'Saving...' : 'Save Changes'}</span>
             </button>
           </div>
@@ -190,7 +190,7 @@ const SiteSettingsManager: React.FC = () => {
               placeholder="Enter site name"
             />
           ) : (
-            <p className="text-lg font-medium text-black">{siteSettings?.site_name}</p>
+            <p className="text-sm md:text-base lg:text-lg font-medium text-gray-900">{siteSettings?.site_name}</p>
           )}
         </div>
 

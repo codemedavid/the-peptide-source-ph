@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Plus, Edit, Trash2, Save, X, ArrowLeft, Beaker, TrendingUp, Package, Users, Lock, FolderOpen, CreditCard, Sparkles, Heart, Layers, Shield } from 'lucide-react';
+import { Plus, Edit, Trash2, Save, X, ArrowLeft, Beaker, TrendingUp, Package, Users, Lock, FolderOpen, CreditCard, Sparkles, Heart, Layers, Crown } from 'lucide-react';
 import type { Product } from '../types';
 import { useMenu } from '../hooks/useMenu';
 import { useCategories } from '../hooks/useCategories';
@@ -7,7 +7,6 @@ import ImageUpload from './ImageUpload';
 import CategoryManager from './CategoryManager';
 import PaymentMethodManager from './PaymentMethodManager';
 import VariationManager from './VariationManager';
-import COAManager from './COAManager';
 
 const AdminDashboard: React.FC = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(() => {
@@ -17,7 +16,7 @@ const AdminDashboard: React.FC = () => {
   const [loginError, setLoginError] = useState('');
   const { products, loading, addProduct, updateProduct, deleteProduct } = useMenu();
   const { categories } = useCategories();
-  const [currentView, setCurrentView] = useState<'dashboard' | 'products' | 'add' | 'edit' | 'categories' | 'payments' | 'coa'>('dashboard');
+  const [currentView, setCurrentView] = useState<'dashboard' | 'products' | 'add' | 'edit' | 'categories' | 'payments'>('dashboard');
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
   const [isProcessing, setIsProcessing] = useState(false);
   const [managingVariationsFor, setManagingVariationsFor] = useState<Product | null>(null);
@@ -239,20 +238,20 @@ const AdminDashboard: React.FC = () => {
   // Login Screen
   if (!isAuthenticated) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-teal-50 via-emerald-50 to-green-50 flex items-center justify-center px-4">
-        <div className="bg-white/90 backdrop-blur-sm rounded-2xl md:rounded-3xl shadow-2xl p-6 md:p-10 w-full max-w-md border-2 border-teal-100">
+      <div className="min-h-screen bg-gradient-to-br from-pink-50 via-amber-50 to-amber-100 flex items-center justify-center px-4">
+        <div className="bg-white/90 backdrop-blur-sm rounded-2xl md:rounded-3xl shadow-2xl p-6 md:p-10 w-full max-w-md border-2 border-pink-100">
           <div className="text-center mb-6 md:mb-8">
-            <div className="relative mx-auto w-16 h-16 md:w-20 md:h-20 bg-gradient-to-br from-teal-500 to-emerald-600 rounded-xl md:rounded-2xl flex items-center justify-center mb-4 md:mb-6 shadow-xl overflow-hidden border-2 border-white">
+            <div className="relative mx-auto w-16 h-16 md:w-20 md:h-20 bg-gradient-to-br from-pink-500 to-pink-600 rounded-xl md:rounded-2xl flex items-center justify-center mb-4 md:mb-6 shadow-xl overflow-hidden border-2 border-white">
               <img 
                 src="/logo.jpg" 
-                alt="KAEDRA" 
+                alt="The Peptide Source PH" 
                 className="w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
                 <Lock className="h-8 w-8 md:h-10 md:w-10 text-white" />
               </div>
             </div>
-            <h1 className="text-2xl md:text-3xl font-bold mb-2 bg-gradient-to-r from-teal-600 to-emerald-600 bg-clip-text text-transparent">Admin Access</h1>
+            <h1 className="text-2xl md:text-3xl font-bold mb-2 bg-gradient-to-r from-pink-600 to-pink-700 bg-clip-text text-transparent">Admin Access</h1>
             <p className="text-sm md:text-base text-gray-600 flex items-center justify-center gap-2">
               Enter password to continue
               <Sparkles className="w-3 h-3 md:w-4 md:h-4 text-yellow-500" />
@@ -277,7 +276,7 @@ const AdminDashboard: React.FC = () => {
               )}
             </div>
             
-            <button type="submit" className="w-full bg-gradient-to-r from-teal-500 via-emerald-500 to-green-500 hover:from-teal-600 hover:via-emerald-600 hover:to-green-600 text-white py-2.5 md:py-3 rounded-xl font-bold text-sm md:text-base shadow-lg hover:shadow-xl transform hover:scale-105 transition-all">
+            <button type="submit" className="w-full bg-gradient-to-r from-pink-500 to-pink-600 hover:from-pink-600 hover:to-pink-700 text-white py-2.5 md:py-3 rounded-xl font-bold text-sm md:text-base shadow-lg hover:shadow-xl transform hover:scale-105 transition-all">
               Access Dashboard ✨
             </button>
           </form>
@@ -288,9 +287,9 @@ const AdminDashboard: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-teal-50 via-emerald-50 to-green-50 flex items-center justify-center px-4">
+      <div className="min-h-screen bg-gradient-to-br from-pink-50 via-amber-50 to-amber-100 flex items-center justify-center px-4">
         <div className="text-center">
-          <div className="w-12 h-12 md:w-16 md:h-16 border-4 border-teal-200 border-t-teal-600 rounded-full animate-spin mx-auto mb-4"></div>
+          <div className="w-12 h-12 md:w-16 md:h-16 border-4 border-pink-200 border-t-pink-600 rounded-full animate-spin mx-auto mb-4"></div>
           <p className="text-sm md:text-base text-gray-600 font-medium">Loading... ✨</p>
         </div>
       </div>
@@ -307,19 +306,19 @@ const AdminDashboard: React.FC = () => {
             onClose={() => setManagingVariationsFor(null)}
           />
         )}
-        <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50">
-        <div className="bg-white/90 backdrop-blur-sm shadow-lg border-b-2 border-blue-100">
+        <div className="min-h-screen bg-gradient-to-br from-pink-50 via-amber-50 to-amber-100">
+        <div className="bg-white/90 backdrop-blur-sm shadow-lg border-b-2 border-pink-100">
           <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8">
             <div className="flex items-center justify-between h-14 md:h-16 gap-2">
               <div className="flex items-center space-x-2 md:space-x-4">
                 <button
                   onClick={handleCancel}
-                  className="text-blue-600 hover:text-blue-700 transition-colors flex items-center gap-1 md:gap-2 group"
+                  className="text-pink-600 hover:text-pink-700 transition-colors flex items-center gap-1 md:gap-2 group"
                 >
                   <ArrowLeft className="h-4 w-4 md:h-5 md:w-5 group-hover:-translate-x-1 transition-transform" />
                   <span className="text-sm md:text-base">Back</span>
                 </button>
-                <h1 className="text-base md:text-xl lg:text-2xl font-bold bg-gradient-to-r from-teal-600 to-emerald-600 bg-clip-text text-transparent">
+                <h1 className="text-base md:text-xl lg:text-2xl font-bold bg-gradient-to-r from-pink-600 to-pink-700 bg-clip-text text-transparent">
                   {currentView === 'add' ? '✨ Add New' : '✏️ Edit Product'}
                 </h1>
               </div>
@@ -328,7 +327,7 @@ const AdminDashboard: React.FC = () => {
                   <button
                     type="button"
                     onClick={() => setManagingVariationsFor(editingProduct)}
-                    className="hidden sm:inline-flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 border-2 border-purple-300 text-purple-700 hover:bg-purple-50 rounded-lg md:rounded-xl text-xs md:text-sm font-semibold transition-all"
+                    className="hidden sm:inline-flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 border-2 border-pink-300 text-pink-700 hover:bg-pink-50 rounded-lg md:rounded-xl text-xs md:text-sm font-semibold transition-all"
                   >
                     <Layers className="h-3 w-3 md:h-4 md:w-4" />
                     Manage Sizes
@@ -341,7 +340,7 @@ const AdminDashboard: React.FC = () => {
                 <button 
                   onClick={handleSaveProduct} 
                   disabled={isProcessing}
-                  className="bg-gradient-to-r from-green-400 to-green-500 hover:from-green-500 hover:to-green-600 text-white px-2 md:px-4 py-1.5 md:py-2 rounded-lg md:rounded-xl transition-all flex items-center gap-1 md:gap-2 shadow-md hover:shadow-lg transform hover:scale-105 disabled:opacity-50 text-xs md:text-sm"
+                  className="bg-gradient-to-r from-pink-500 to-pink-600 hover:from-pink-600 hover:to-pink-700 text-white px-2 md:px-4 py-1.5 md:py-2 rounded-lg md:rounded-xl transition-all flex items-center gap-1 md:gap-2 shadow-md hover:shadow-lg transform hover:scale-105 disabled:opacity-50 text-xs md:text-sm"
                 >
                   <Save className="h-3 w-3 md:h-4 md:w-4" />
                   {isProcessing ? 'Saving...' : 'Save'}
@@ -352,7 +351,7 @@ const AdminDashboard: React.FC = () => {
         </div>
 
         <div className="max-w-4xl mx-auto px-3 sm:px-4 py-4 md:py-8">
-          <div className="bg-white/90 backdrop-blur-sm rounded-2xl md:rounded-3xl shadow-xl p-4 md:p-6 lg:p-8 space-y-4 md:space-y-6 border-2 border-teal-100">
+          <div className="bg-white/90 backdrop-blur-sm rounded-2xl md:rounded-3xl shadow-xl p-4 md:p-6 lg:p-8 space-y-4 md:space-y-6 border-2 border-pink-100">
             {/* Basic Information */}
             <div>
               <h3 className="text-base md:text-lg font-bold text-gray-900 mb-3 md:mb-4 flex items-center gap-2">
@@ -481,7 +480,7 @@ const AdminDashboard: React.FC = () => {
             </div>
 
             {/* Complete Set Inclusions */}
-            <div className="bg-gradient-to-r from-teal-50 to-emerald-50 border-2 border-teal-200 rounded-xl p-4 md:p-6">
+            <div className="bg-gradient-to-r from-pink-50 to-amber-50 border-2 border-pink-200 rounded-xl p-4 md:p-6">
               <h3 className="text-base md:text-lg font-bold text-gray-900 mb-3 md:mb-4 flex items-center gap-2">
                 <span className="text-xl md:text-2xl">📦</span>
                 Complete Set Inclusions
@@ -502,7 +501,7 @@ const AdminDashboard: React.FC = () => {
                   rows={6}
                 />
                 <p className="text-xs text-gray-500 mt-2 flex items-start gap-1.5">
-                  <span className="text-teal-600 font-bold">💡</span>
+                  <span className="text-pink-600 font-bold">💡</span>
                   <span>Enter each item on a new line. These will be displayed as a checklist on the product card. Leave empty if this is not a complete set.</span>
                 </p>
               </div>
@@ -532,7 +531,7 @@ const AdminDashboard: React.FC = () => {
                       type="checkbox"
                       checked={formData.featured || false}
                       onChange={(e) => setFormData({ ...formData, featured: e.target.checked })}
-                      className="w-4 h-4 md:w-5 md:h-5 text-teal-600 rounded focus:ring-teal-500"
+                      className="w-4 h-4 md:w-5 md:h-5 text-pink-600 rounded focus:ring-pink-500"
                     />
                     <span className="text-xs md:text-sm font-semibold text-gray-700">⭐ Featured</span>
                   </label>
@@ -542,7 +541,7 @@ const AdminDashboard: React.FC = () => {
                       type="checkbox"
                       checked={formData.available ?? true}
                       onChange={(e) => setFormData({ ...formData, available: e.target.checked })}
-                      className="w-4 h-4 md:w-5 md:h-5 text-green-600 rounded focus:ring-green-500"
+                      className="w-4 h-4 md:w-5 md:h-5 text-pink-600 rounded focus:ring-pink-500"
                     />
                     <span className="text-xs md:text-sm font-semibold text-gray-700">✅ Available</span>
                   </label>
@@ -611,19 +610,19 @@ const AdminDashboard: React.FC = () => {
             onClose={() => setManagingVariationsFor(null)}
           />
         )}
-        <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50">
-        <div className="bg-white/90 backdrop-blur-sm shadow-lg border-b-2 border-blue-100">
+        <div className="min-h-screen bg-gradient-to-br from-pink-50 via-amber-50 to-amber-100">
+        <div className="bg-white/90 backdrop-blur-sm shadow-lg border-b-2 border-pink-100">
           <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8">
             <div className="flex items-center justify-between h-14 md:h-16">
               <div className="flex items-center space-x-2 md:space-x-4">
                 <button
                   onClick={() => setCurrentView('dashboard')}
-                  className="text-blue-600 hover:text-blue-700 transition-colors flex items-center gap-1 md:gap-2 group"
+                  className="text-pink-600 hover:text-pink-700 transition-colors flex items-center gap-1 md:gap-2 group"
                 >
                   <ArrowLeft className="h-4 w-4 md:h-5 md:w-5 group-hover:-translate-x-1 transition-transform" />
                   <span className="text-sm md:text-base">Dashboard</span>
                 </button>
-                <h1 className="text-base md:text-xl lg:text-2xl font-bold bg-gradient-to-r from-teal-600 to-emerald-600 bg-clip-text text-transparent">Products</h1>
+                <h1 className="text-base md:text-xl lg:text-2xl font-bold bg-gradient-to-r from-pink-600 to-pink-700 bg-clip-text text-transparent">Products</h1>
               </div>
               <div className="flex items-center gap-2">
                 {selectedProducts.size > 0 && (
@@ -639,7 +638,7 @@ const AdminDashboard: React.FC = () => {
                 )}
                 <button
                   onClick={handleAddProduct}
-                  className="bg-gradient-to-r from-teal-500 to-emerald-600 hover:from-teal-600 hover:to-emerald-700 text-white px-2 md:px-4 py-1.5 md:py-2 rounded-lg md:rounded-xl font-medium text-xs md:text-sm shadow-md hover:shadow-lg transform hover:scale-105 transition-all flex items-center gap-1 md:gap-2"
+                  className="bg-gradient-to-r from-pink-500 to-pink-600 hover:from-pink-600 hover:to-pink-700 text-white px-2 md:px-4 py-1.5 md:py-2 rounded-lg md:rounded-xl font-medium text-xs md:text-sm shadow-md hover:shadow-lg transform hover:scale-105 transition-all flex items-center gap-1 md:gap-2"
                 >
                   <Plus className="h-3 w-3 md:h-4 md:w-4" />
                   <span className="hidden sm:inline">Add New</span>
@@ -653,15 +652,15 @@ const AdminDashboard: React.FC = () => {
         <div className="max-w-7xl mx-auto px-3 sm:px-4 py-4 md:py-8">
           {/* Selection Info Banner */}
           {selectedProducts.size > 0 && (
-            <div className="mb-4 bg-teal-50 border-2 border-teal-200 rounded-xl p-3 md:p-4 flex items-center justify-between">
+            <div className="mb-4 bg-pink-50 border-2 border-pink-200 rounded-xl p-3 md:p-4 flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <span className="text-sm md:text-base font-semibold text-teal-700">
+                <span className="text-sm md:text-base font-semibold text-pink-700">
                   {selectedProducts.size} product{selectedProducts.size !== 1 ? 's' : ''} selected
                 </span>
               </div>
               <button
                 onClick={() => setSelectedProducts(new Set())}
-                className="text-xs md:text-sm text-teal-600 hover:text-teal-700 font-medium underline"
+                className="text-xs md:text-sm text-pink-600 hover:text-pink-700 font-medium underline"
               >
                 Clear Selection
               </button>
@@ -671,14 +670,14 @@ const AdminDashboard: React.FC = () => {
           {/* Mobile Card View */}
           <div className="md:hidden space-y-3">
             {products.map((product) => (
-              <div key={product.id} className="bg-white/90 backdrop-blur-sm rounded-xl shadow-lg border-2 border-teal-100 p-3">
+              <div key={product.id} className="bg-white/90 backdrop-blur-sm rounded-xl shadow-lg border-2 border-pink-100 p-3">
                 <div className="flex items-start justify-between gap-2 mb-2">
                   <div className="flex items-start gap-2 flex-1 min-w-0">
                     <input
                       type="checkbox"
                       checked={selectedProducts.has(product.id)}
                       onChange={() => toggleSelectProduct(product.id)}
-                      className="mt-0.5 w-4 h-4 text-teal-600 rounded focus:ring-teal-500 cursor-pointer shrink-0"
+                      className="mt-0.5 w-4 h-4 text-pink-600 rounded focus:ring-pink-500 cursor-pointer shrink-0"
                     />
                     <div className="flex-1 min-w-0">
                       <h3 className="text-sm font-bold text-gray-900 truncate">{product.name}</h3>
@@ -689,7 +688,7 @@ const AdminDashboard: React.FC = () => {
                     <button
                       onClick={() => setManagingVariationsFor(product)}
                       disabled={isProcessing}
-                      className="p-1.5 text-purple-600 hover:bg-purple-100 rounded-lg transition-colors"
+                      className="p-1.5 text-pink-600 hover:bg-pink-100 rounded-lg transition-colors"
                       title="Manage Sizes"
                     >
                       <Layers className="h-4 w-4" />
@@ -697,7 +696,7 @@ const AdminDashboard: React.FC = () => {
                     <button
                       onClick={() => handleEditProduct(product)}
                       disabled={isProcessing}
-                      className="p-1.5 text-blue-600 hover:bg-blue-100 rounded-lg transition-colors"
+                      className="p-1.5 text-pink-600 hover:bg-pink-100 rounded-lg transition-colors"
                     >
                       <Edit className="h-4 w-4" />
                     </button>
@@ -714,7 +713,7 @@ const AdminDashboard: React.FC = () => {
                   <div className="flex items-center gap-3">
                     <div>
                       <div className="text-[10px] text-gray-500">Price</div>
-                      <div className="text-sm font-bold text-teal-600">
+                      <div className="text-sm font-bold text-pink-600">
                         ₱{product.base_price.toLocaleString('en-PH', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
                       </div>
                     </div>
@@ -724,7 +723,7 @@ const AdminDashboard: React.FC = () => {
                     </div>
                     <div>
                       <div className="text-[10px] text-gray-500">Sizes</div>
-                      <div className="text-sm font-semibold text-purple-600">{product.variations?.length || 0}</div>
+                      <div className="text-sm font-semibold text-pink-600">{product.variations?.length || 0}</div>
                     </div>
                   </div>
                   <div className="flex items-center gap-1">
@@ -743,17 +742,17 @@ const AdminDashboard: React.FC = () => {
           </div>
 
           {/* Desktop Table View */}
-          <div className="hidden md:block bg-white/90 backdrop-blur-sm rounded-2xl md:rounded-3xl shadow-xl overflow-hidden border-2 border-teal-100">
+          <div className="hidden md:block bg-white/90 backdrop-blur-sm rounded-2xl md:rounded-3xl shadow-xl overflow-hidden border-2 border-pink-100">
             <div className="overflow-x-auto">
               <table className="w-full">
-                <thead className="bg-gradient-to-r from-teal-50 to-emerald-50 border-b-2 border-teal-100">
+                <thead className="bg-gradient-to-r from-pink-50 to-amber-50 border-b-2 border-pink-100">
                   <tr>
                     <th className="px-4 py-4 text-center w-12">
                       <input
                         type="checkbox"
                         checked={selectedProducts.size === products.length && products.length > 0}
                         onChange={toggleSelectAll}
-                        className="w-4 h-4 text-teal-600 rounded focus:ring-teal-500 cursor-pointer"
+                        className="w-4 h-4 text-pink-600 rounded focus:ring-pink-500 cursor-pointer"
                         title="Select All"
                       />
                     </th>
@@ -768,13 +767,13 @@ const AdminDashboard: React.FC = () => {
                 </thead>
                 <tbody className="divide-y divide-gray-100">
                   {products.map((product) => (
-                    <tr key={product.id} className="hover:bg-blue-50/50 transition-colors">
+                    <tr key={product.id} className="hover:bg-pink-50/50 transition-colors">
                       <td className="px-4 py-4 text-center">
                         <input
                           type="checkbox"
                           checked={selectedProducts.has(product.id)}
                           onChange={() => toggleSelectProduct(product.id)}
-                          className="w-4 h-4 text-teal-600 rounded focus:ring-teal-500 cursor-pointer"
+                          className="w-4 h-4 text-pink-600 rounded focus:ring-pink-500 cursor-pointer"
                         />
                       </td>
                       <td className="px-6 py-4">
@@ -784,11 +783,11 @@ const AdminDashboard: React.FC = () => {
                       <td className="px-6 py-4 text-sm text-gray-600 hidden lg:table-cell">
                         {categories.find(cat => cat.id === product.category)?.name}
                       </td>
-                      <td className="px-6 py-4 text-sm font-bold text-teal-600">
+                      <td className="px-6 py-4 text-sm font-bold text-pink-600">
                         ₱{product.base_price.toLocaleString('en-PH', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
                       </td>
                       <td className="px-6 py-4">
-                        <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-green-100 text-green-700">
+                        <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-pink-100 text-pink-700">
                           {product.purity_percentage}%
                         </span>
                       </td>
@@ -798,7 +797,7 @@ const AdminDashboard: React.FC = () => {
                       <td className="px-6 py-4 hidden xl:table-cell">
                         <div className="flex flex-col gap-1">
                           {product.featured && (
-                            <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-blue-100 text-blue-700">
+                            <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-pink-100 text-pink-700">
                               ⭐ Featured
                             </span>
                           )}
@@ -814,7 +813,7 @@ const AdminDashboard: React.FC = () => {
                           <button
                             onClick={() => setManagingVariationsFor(product)}
                             disabled={isProcessing}
-                            className="p-2 text-purple-600 hover:bg-purple-100 rounded-xl transition-colors"
+                            className="p-2 text-pink-600 hover:bg-pink-100 rounded-xl transition-colors"
                             title="Manage Sizes"
                           >
                             <Layers className="h-4 w-4" />
@@ -822,7 +821,7 @@ const AdminDashboard: React.FC = () => {
                           <button
                             onClick={() => handleEditProduct(product)}
                             disabled={isProcessing}
-                            className="p-2 text-teal-600 hover:bg-teal-100 rounded-xl transition-colors"
+                            className="p-2 text-pink-600 hover:bg-pink-100 rounded-xl transition-colors"
                           >
                             <Edit className="h-4 w-4" />
                           </button>
@@ -857,11 +856,6 @@ const AdminDashboard: React.FC = () => {
     return <PaymentMethodManager onBack={() => setCurrentView('dashboard')} />;
   }
 
-  // COA Manager View
-  if (currentView === 'coa') {
-    return <COAManager onBack={() => setCurrentView('dashboard')} />;
-  }
-
   // Dashboard View
   return (
     <>
@@ -872,12 +866,12 @@ const AdminDashboard: React.FC = () => {
         />
       )}
       
-    <div className="min-h-screen bg-gradient-to-br from-teal-50 via-emerald-50 to-green-50">
-      <div className="bg-white/90 backdrop-blur-sm shadow-lg border-b-2 border-teal-100">
+    <div className="min-h-screen bg-gradient-to-br from-pink-50 via-amber-50 to-amber-100">
+      <div className="bg-white/90 backdrop-blur-sm shadow-lg border-b-2 border-pink-100">
         <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8">
           <div className="flex items-center justify-between h-14 md:h-16">
             <div className="flex items-center space-x-2 md:space-x-3">
-              <div className="w-8 h-8 md:w-10 md:h-10 bg-gradient-to-br from-teal-500 to-emerald-600 rounded-lg md:rounded-xl flex items-center justify-center shadow-lg overflow-hidden border-2 border-white">
+              <div className="w-8 h-8 md:w-10 md:h-10 bg-gradient-to-br from-pink-500 to-pink-600 rounded-lg md:rounded-xl flex items-center justify-center shadow-lg overflow-hidden border-2 border-white">
                 <img 
                   src="/logo.jpg" 
                   alt="KAEDRA" 
@@ -885,11 +879,11 @@ const AdminDashboard: React.FC = () => {
                 />
               </div>
               <div>
-                <h1 className="text-sm md:text-xl lg:text-2xl font-bold bg-gradient-to-r from-teal-600 via-emerald-600 to-green-600 bg-clip-text text-transparent">
-                  KAEDRA
+                <h1 className="text-sm md:text-xl lg:text-2xl font-bold bg-gradient-to-r from-pink-600 to-pink-700 bg-clip-text text-transparent">
+                  The Peptide Source PH
                 </h1>
                 <p className="text-[10px] md:text-xs text-gray-600 font-medium flex items-center gap-1">
-                  <Sparkles className="w-2 h-2 md:w-3 md:h-3 text-yellow-500" />
+                  <Crown className="w-2 h-2 md:w-3 md:h-3 text-pink-500" />
                   Admin Dashboard
                 </p>
               </div>
@@ -899,7 +893,7 @@ const AdminDashboard: React.FC = () => {
                 href="/" 
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-600 hover:text-blue-600 transition-colors font-medium text-xs md:text-sm hidden sm:block"
+                className="text-gray-600 hover:text-pink-600 transition-colors font-medium text-xs md:text-sm hidden sm:block"
               >
                 View Website
               </a>
@@ -919,45 +913,45 @@ const AdminDashboard: React.FC = () => {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-6 mb-4 md:mb-8">
           <button
             onClick={() => setCurrentView('products')}
-            className="bg-white/90 backdrop-blur-sm rounded-xl md:rounded-2xl shadow-lg hover:shadow-xl transition-all p-3 md:p-6 border-2 border-teal-100 transform hover:-translate-y-1 text-left cursor-pointer"
+            className="bg-white/90 backdrop-blur-sm rounded-xl md:rounded-2xl shadow-lg hover:shadow-xl transition-all p-3 md:p-6 border-2 border-pink-100 transform hover:-translate-y-1 text-left cursor-pointer"
           >
             <div className="flex items-center">
-              <div className="p-2 md:p-3 bg-gradient-to-br from-teal-400 to-teal-600 rounded-lg md:rounded-xl shadow-md">
+              <div className="p-2 md:p-3 bg-gradient-to-br from-pink-400 to-pink-600 rounded-lg md:rounded-xl shadow-md">
                 <Package className="h-4 w-4 md:h-6 md:w-6 text-white" />
               </div>
               <div className="ml-2 md:ml-4">
                 <p className="text-[10px] md:text-sm font-medium text-gray-600">Total Products</p>
-                <p className="text-xl md:text-3xl font-bold bg-gradient-to-r from-teal-600 to-emerald-600 bg-clip-text text-transparent">{totalProducts}</p>
+                <p className="text-xl md:text-3xl font-bold bg-gradient-to-r from-pink-600 to-pink-700 bg-clip-text text-transparent">{totalProducts}</p>
               </div>
             </div>
           </button>
 
           <button
             onClick={() => setCurrentView('products')}
-            className="bg-white/90 backdrop-blur-sm rounded-xl md:rounded-2xl shadow-lg hover:shadow-xl transition-all p-3 md:p-6 border-2 border-green-100 transform hover:-translate-y-1 text-left cursor-pointer"
+            className="bg-white/90 backdrop-blur-sm rounded-xl md:rounded-2xl shadow-lg hover:shadow-xl transition-all p-3 md:p-6 border-2 border-pink-100 transform hover:-translate-y-1 text-left cursor-pointer"
           >
             <div className="flex items-center">
-              <div className="p-2 md:p-3 bg-gradient-to-br from-green-400 to-green-600 rounded-lg md:rounded-xl shadow-md">
+              <div className="p-2 md:p-3 bg-gradient-to-br from-amber-400 to-amber-600 rounded-lg md:rounded-xl shadow-md">
                 <TrendingUp className="h-4 w-4 md:h-6 md:w-6 text-white" />
               </div>
               <div className="ml-2 md:ml-4">
                 <p className="text-[10px] md:text-sm font-medium text-gray-600">Available</p>
-                <p className="text-xl md:text-3xl font-bold bg-gradient-to-r from-green-600 to-green-500 bg-clip-text text-transparent">{availableProducts}</p>
+                <p className="text-xl md:text-3xl font-bold bg-gradient-to-r from-amber-600 to-amber-500 bg-clip-text text-transparent">{availableProducts}</p>
               </div>
             </div>
           </button>
 
           <button
             onClick={() => setCurrentView('products')}
-            className="bg-white/90 backdrop-blur-sm rounded-xl md:rounded-2xl shadow-lg hover:shadow-xl transition-all p-3 md:p-6 border-2 border-purple-100 transform hover:-translate-y-1 text-left cursor-pointer"
+            className="bg-white/90 backdrop-blur-sm rounded-xl md:rounded-2xl shadow-lg hover:shadow-xl transition-all p-3 md:p-6 border-2 border-pink-100 transform hover:-translate-y-1 text-left cursor-pointer"
           >
             <div className="flex items-center">
-              <div className="p-2 md:p-3 bg-gradient-to-br from-purple-400 to-purple-600 rounded-lg md:rounded-xl shadow-md">
+              <div className="p-2 md:p-3 bg-gradient-to-br from-pink-400 to-pink-600 rounded-lg md:rounded-xl shadow-md">
                 <Sparkles className="h-4 w-4 md:h-6 md:w-6 text-white" />
               </div>
               <div className="ml-2 md:ml-4">
                 <p className="text-[10px] md:text-sm font-medium text-gray-600">Featured</p>
-                <p className="text-xl md:text-3xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">{featuredProducts}</p>
+                <p className="text-xl md:text-3xl font-bold bg-gradient-to-r from-pink-600 to-pink-700 bg-clip-text text-transparent">{featuredProducts}</p>
               </div>
             </div>
           </button>
@@ -980,7 +974,7 @@ const AdminDashboard: React.FC = () => {
 
         {/* Quick Actions */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
-          <div className="bg-white/90 backdrop-blur-sm rounded-2xl md:rounded-3xl shadow-xl p-4 md:p-6 border-2 border-teal-100">
+          <div className="bg-white/90 backdrop-blur-sm rounded-2xl md:rounded-3xl shadow-xl p-4 md:p-6 border-2 border-pink-100">
             <h3 className="text-base md:text-lg font-bold text-gray-900 mb-3 md:mb-4 flex items-center gap-2">
               Quick Actions
               <Sparkles className="w-4 h-4 md:w-5 md:h-5 text-yellow-500" />
@@ -988,25 +982,25 @@ const AdminDashboard: React.FC = () => {
             <div className="space-y-1.5 md:space-y-2">
               <button
                 onClick={handleAddProduct}
-                className="w-full flex items-center gap-2 md:gap-3 p-2 md:p-3 text-left hover:bg-gradient-to-r hover:from-blue-50 hover:to-purple-50 rounded-lg md:rounded-xl transition-all group"
+                className="w-full flex items-center gap-2 md:gap-3 p-2 md:p-3 text-left hover:bg-gradient-to-r hover:from-pink-50 hover:to-amber-50 rounded-lg md:rounded-xl transition-all group"
               >
-                <div className="p-1.5 md:p-2 bg-gradient-to-br from-teal-400 to-teal-600 rounded-md md:rounded-lg text-white">
+                <div className="p-1.5 md:p-2 bg-gradient-to-br from-pink-400 to-pink-600 rounded-md md:rounded-lg text-white">
                   <Plus className="h-3 w-3 md:h-5 md:w-5" />
                 </div>
                 <span className="text-xs md:text-sm font-medium text-gray-900">Add New Product</span>
               </button>
               <button
                 onClick={() => setCurrentView('products')}
-                className="w-full flex items-center gap-2 md:gap-3 p-2 md:p-3 text-left hover:bg-gradient-to-r hover:from-blue-50 hover:to-purple-50 rounded-lg md:rounded-xl transition-all group"
+                className="w-full flex items-center gap-2 md:gap-3 p-2 md:p-3 text-left hover:bg-gradient-to-r hover:from-pink-50 hover:to-amber-50 rounded-lg md:rounded-xl transition-all group"
               >
-                <div className="p-1.5 md:p-2 bg-gradient-to-br from-purple-400 to-purple-600 rounded-md md:rounded-lg text-white">
+                <div className="p-1.5 md:p-2 bg-gradient-to-br from-pink-400 to-pink-600 rounded-md md:rounded-lg text-white">
                   <Package className="h-3 w-3 md:h-5 md:w-5" />
                 </div>
                 <span className="text-xs md:text-sm font-medium text-gray-900">Manage Products</span>
               </button>
               <button
                 onClick={() => setCurrentView('categories')}
-                className="w-full flex items-center gap-2 md:gap-3 p-2 md:p-3 text-left hover:bg-gradient-to-r hover:from-blue-50 hover:to-purple-50 rounded-lg md:rounded-xl transition-all group"
+                className="w-full flex items-center gap-2 md:gap-3 p-2 md:p-3 text-left hover:bg-gradient-to-r hover:from-pink-50 hover:to-amber-50 rounded-lg md:rounded-xl transition-all group"
               >
                 <div className="p-1.5 md:p-2 bg-gradient-to-br from-pink-400 to-pink-600 rounded-md md:rounded-lg text-white">
                   <FolderOpen className="h-3 w-3 md:h-5 md:w-5" />
@@ -1015,26 +1009,17 @@ const AdminDashboard: React.FC = () => {
               </button>
               <button
                 onClick={() => setCurrentView('payments')}
-                className="w-full flex items-center gap-2 md:gap-3 p-2 md:p-3 text-left hover:bg-gradient-to-r hover:from-blue-50 hover:to-purple-50 rounded-lg md:rounded-xl transition-all group"
+                className="w-full flex items-center gap-2 md:gap-3 p-2 md:p-3 text-left hover:bg-gradient-to-r hover:from-pink-50 hover:to-amber-50 rounded-lg md:rounded-xl transition-all group"
               >
-                <div className="p-1.5 md:p-2 bg-gradient-to-br from-green-400 to-green-600 rounded-md md:rounded-lg text-white">
+                <div className="p-1.5 md:p-2 bg-gradient-to-br from-pink-400 to-pink-600 rounded-md md:rounded-lg text-white">
                   <CreditCard className="h-3 w-3 md:h-5 md:w-5" />
                 </div>
                 <span className="text-xs md:text-sm font-medium text-gray-900">Payment Methods</span>
               </button>
-              <button
-                onClick={() => setCurrentView('coa')}
-                className="w-full flex items-center gap-2 md:gap-3 p-2 md:p-3 text-left hover:bg-gradient-to-r hover:from-blue-50 hover:to-purple-50 rounded-lg md:rounded-xl transition-all group"
-              >
-                <div className="p-1.5 md:p-2 bg-gradient-to-br from-blue-400 to-blue-600 rounded-md md:rounded-lg text-white">
-                  <Shield className="h-3 w-3 md:h-5 md:w-5" />
-                </div>
-                <span className="text-xs md:text-sm font-medium text-gray-900">COA Reports</span>
-              </button>
             </div>
           </div>
 
-          <div className="bg-white/90 backdrop-blur-sm rounded-2xl md:rounded-3xl shadow-xl p-4 md:p-6 border-2 border-purple-100">
+          <div className="bg-white/90 backdrop-blur-sm rounded-2xl md:rounded-3xl shadow-xl p-4 md:p-6 border-2 border-pink-100">
             <h3 className="text-base md:text-lg font-bold text-gray-900 mb-3 md:mb-4 flex items-center gap-2">
               Categories Overview
               <Heart className="w-4 h-4 md:w-5 md:h-5 text-pink-500 animate-pulse" />
@@ -1042,15 +1027,15 @@ const AdminDashboard: React.FC = () => {
             <div className="space-y-2 md:space-y-3">
               {categoryCounts.map((category, index) => {
                 const colors = [
-                  'from-teal-400 to-teal-600',
-                  'from-emerald-400 to-emerald-600',
-                  'from-green-400 to-green-600',
-                  'from-green-400 to-green-600',
-                  'from-orange-400 to-orange-600',
-                  'from-cyan-400 to-cyan-600'
+                  'from-pink-400 to-pink-600',
+                  'from-pink-500 to-pink-700',
+                  'from-amber-400 to-amber-600',
+                  'from-pink-400 to-amber-500',
+                  'from-pink-500 to-pink-600',
+                  'from-amber-500 to-amber-600'
                 ];
                 return (
-                  <div key={category.id} className="flex items-center justify-between py-1.5 md:py-2 hover:bg-gradient-to-r hover:from-teal-50 hover:to-emerald-50 rounded-lg md:rounded-xl px-2 md:px-3 transition-all">
+                  <div key={category.id} className="flex items-center justify-between py-1.5 md:py-2 hover:bg-gradient-to-r hover:from-pink-50 hover:to-amber-50 rounded-lg md:rounded-xl px-2 md:px-3 transition-all">
                     <span className="text-xs md:text-sm font-semibold text-gray-900">{category.name}</span>
                     <span className={`text-[10px] md:text-sm font-bold text-white bg-gradient-to-r ${colors[index % colors.length]} px-2 md:px-3 py-0.5 md:py-1 rounded-full shadow-md`}>
                       {category.count}

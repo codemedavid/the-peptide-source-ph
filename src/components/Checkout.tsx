@@ -161,7 +161,7 @@ ${paymentMethod ? `Account: ${paymentMethod.account_number}` : ''}`;
 
   if (step === 'confirmation') {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 flex items-center justify-center px-4 py-12">
+      <div className="min-h-screen bg-gradient-to-br from-pink-50 via-amber-50 to-amber-100 flex items-center justify-center px-4 py-12">
         <div className="max-w-2xl w-full">
           <div className="bg-white/90 backdrop-blur-sm rounded-3xl shadow-2xl p-8 md:p-12 text-center border-2 border-green-100">
             <div className="bg-gradient-to-br from-green-400 to-green-600 w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-6 shadow-xl animate-bounce">
@@ -178,7 +178,7 @@ ${paymentMethod ? `Account: ${paymentMethod.account_number}` : ''}`;
             </p>
 
             {/* Copy Order Details Option */}
-            <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl p-6 mb-8 border-2 border-blue-100">
+            <div className="bg-gradient-to-r from-pink-50 to-amber-50 rounded-2xl p-6 mb-8 border-2 border-pink-100">
               <p className="text-sm text-gray-700 mb-4 text-center">
                 <strong>Didn't receive the message?</strong> Copy your order details and send it manually:
               </p>
@@ -186,8 +186,8 @@ ${paymentMethod ? `Account: ${paymentMethod.account_number}` : ''}`;
                 onClick={handleCopyOrderDetails}
                 className={`w-full py-3 rounded-xl font-bold text-base shadow-md hover:shadow-lg transform hover:scale-105 transition-all flex items-center justify-center gap-2 ${
                   copied
-                    ? 'bg-gradient-to-r from-teal-400 to-teal-600 text-white'
-                    : 'bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white'
+                    ? 'bg-gradient-to-r from-pink-400 to-pink-600 text-white'
+                    : 'bg-gradient-to-r from-pink-500 to-pink-600 hover:from-pink-600 hover:to-pink-700 text-white'
                 }`}
               >
                 {copied ? (
@@ -203,13 +203,13 @@ ${paymentMethod ? `Account: ${paymentMethod.account_number}` : ''}`;
                 )}
               </button>
               {copied && (
-                <p className="text-sm text-teal-600 text-center mt-3 font-medium">
+                <p className="text-sm text-pink-600 text-center mt-3 font-medium">
                   ✓ Order details copied to clipboard! You can now paste it in Messenger or WhatsApp.
                 </p>
               )}
             </div>
             
-            <div className="bg-gradient-to-r from-teal-50 to-emerald-50 rounded-2xl p-6 mb-8 text-left border-2 border-teal-100">
+            <div className="bg-gradient-to-r from-pink-50 to-amber-50 rounded-2xl p-6 mb-8 text-left border-2 border-pink-100">
               <h3 className="font-bold text-gray-900 mb-4 flex items-center gap-2">
                 What happens next? 
                 <Sparkles className="w-5 h-5 text-yellow-500" />
@@ -239,7 +239,7 @@ ${paymentMethod ? `Account: ${paymentMethod.account_number}` : ''}`;
                 window.scrollTo({ top: 0, behavior: 'smooth' });
                 window.location.href = '/';
               }}
-              className="w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white py-3 md:py-4 rounded-2xl font-bold text-base md:text-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all flex items-center justify-center gap-2"
+              className="w-full bg-gradient-to-r from-pink-500 to-pink-600 hover:from-pink-600 hover:to-pink-700 text-white py-3 md:py-4 rounded-2xl font-bold text-base md:text-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all flex items-center justify-center gap-2"
             >
               <Heart className="w-5 h-5 animate-pulse" />
               Continue Shopping
@@ -252,11 +252,11 @@ ${paymentMethod ? `Account: ${paymentMethod.account_number}` : ''}`;
 
   if (step === 'details') {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 py-6 md:py-8">
+      <div className="min-h-screen bg-gradient-to-br from-pink-50 via-amber-50 to-amber-100 py-6 md:py-8">
         <div className="container mx-auto px-3 md:px-4 max-w-6xl">
           <button
             onClick={onBack}
-            className="text-blue-600 hover:text-blue-700 font-medium mb-4 md:mb-6 flex items-center gap-2 transition-colors group"
+            className="text-pink-600 hover:text-pink-700 font-medium mb-4 md:mb-6 flex items-center gap-2 transition-colors group"
           >
             <ArrowLeft className="w-4 h-4 md:w-5 md:h-5 group-hover:-translate-x-1 transition-transform" />
             <span className="text-sm md:text-base">Back to Cart</span>
@@ -271,9 +271,9 @@ ${paymentMethod ? `Account: ${paymentMethod.account_number}` : ''}`;
             {/* Main Form */}
             <div className="lg:col-span-2 space-y-4 md:space-y-6">
               {/* Customer Information */}
-              <div className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg p-5 md:p-6 border-2 border-teal-100">
+              <div className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg p-5 md:p-6 border-2 border-pink-100">
                 <h2 className="text-lg md:text-xl font-bold text-gray-900 mb-4 md:mb-6 flex items-center gap-2">
-                  <div className="bg-gradient-to-br from-blue-400 to-purple-500 p-2 rounded-xl">
+                  <div className="bg-gradient-to-br from-pink-400 to-pink-500 p-2 rounded-xl">
                     <Package className="w-5 h-5 md:w-6 md:h-6 text-white" />
                   </div>
                   Customer Information
@@ -322,7 +322,7 @@ ${paymentMethod ? `Account: ${paymentMethod.account_number}` : ''}`;
               </div>
 
               {/* Shipping Address */}
-              <div className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg p-5 md:p-6 border-2 border-purple-100">
+              <div className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg p-5 md:p-6 border-2 border-pink-100">
                 <h2 className="text-lg md:text-xl font-bold text-gray-900 mb-4 md:mb-6 flex items-center gap-2">
                   <span className="text-2xl">📦</span>
                   Shipping Address
@@ -405,7 +405,7 @@ ${paymentMethod ? `Account: ${paymentMethod.account_number}` : ''}`;
                 disabled={!isDetailsValid}
                 className={`w-full py-3 md:py-4 rounded-2xl font-bold text-base md:text-lg transition-all transform shadow-lg ${
                   isDetailsValid
-                    ? 'bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 hover:from-blue-600 hover:via-purple-600 hover:to-pink-600 text-white hover:scale-105 hover:shadow-xl'
+                    ? 'bg-gradient-to-r from-pink-500 to-pink-600 hover:from-pink-600 hover:to-pink-700 text-white hover:scale-105 hover:shadow-xl'
                     : 'bg-gray-300 text-gray-500 cursor-not-allowed'
                 }`}
               >
@@ -428,7 +428,7 @@ ${paymentMethod ? `Account: ${paymentMethod.account_number}` : ''}`;
                         <div className="flex-1">
                           <h4 className="font-semibold text-gray-900 text-sm">{item.product.name}</h4>
                           {item.variation && (
-                            <p className="text-xs text-teal-600 mt-1">{item.variation.name}</p>
+                            <p className="text-xs text-pink-600 mt-1">{item.variation.name}</p>
                           )}
                           <p className="text-xs text-gray-500 mt-1">
                             {item.product.purity_percentage}% Purity
@@ -450,12 +450,12 @@ ${paymentMethod ? `Account: ${paymentMethod.account_number}` : ''}`;
                   </div>
                   <div className="flex justify-between text-gray-600 text-xs">
                     <span>Shipping</span>
-                    <span className="font-medium text-teal-600">To be discussed via chat</span>
+                    <span className="font-medium text-pink-600">To be discussed via chat</span>
                   </div>
                   <div className="border-t-2 border-gray-200 pt-3">
                     <div className="flex justify-between items-center">
                       <span className="font-bold text-gray-900">Total</span>
-                      <span className="text-2xl font-bold text-teal-600">
+                      <span className="text-2xl font-bold text-pink-600">
                         ₱{finalTotal.toLocaleString('en-PH', { minimumFractionDigits: 0 })}
                       </span>
                     </div>
@@ -474,7 +474,7 @@ ${paymentMethod ? `Account: ${paymentMethod.account_number}` : ''}`;
   const paymentMethodInfo = paymentMethods.find(pm => pm.id === selectedPaymentMethod);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 py-6 md:py-8">
+    <div className="min-h-screen bg-gradient-to-br from-pink-50 via-amber-50 to-amber-100 py-6 md:py-8">
       <div className="container mx-auto px-3 md:px-4 max-w-6xl">
         <button
           onClick={() => setStep('details')}
@@ -486,7 +486,7 @@ ${paymentMethod ? `Account: ${paymentMethod.account_number}` : ''}`;
 
         <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-6 md:mb-8 flex items-center gap-2">
           Payment
-          <CreditCard className="w-6 h-6 md:w-7 md:h-7 text-teal-600" />
+          <CreditCard className="w-6 h-6 md:w-7 md:h-7 text-pink-600" />
         </h1>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8">
@@ -508,13 +508,13 @@ ${paymentMethod ? `Account: ${paymentMethod.account_number}` : ''}`;
                     onClick={() => setSelectedPaymentMethod(method.id)}
                     className={`p-4 rounded-lg border-2 transition-all flex items-center justify-between ${
                       selectedPaymentMethod === method.id
-                        ? 'border-blue-600 bg-blue-50'
-                        : 'border-gray-200 hover:border-blue-300'
+                        ? 'border-pink-600 bg-pink-50'
+                        : 'border-gray-200 hover:border-pink-300'
                     }`}
                   >
                     <div className="flex items-center gap-3">
-                      <div className="w-12 h-12 bg-teal-100 rounded-lg flex items-center justify-center">
-                        <CreditCard className="w-6 h-6 text-teal-600" />
+                      <div className="w-12 h-12 bg-pink-100 rounded-lg flex items-center justify-center">
+                        <CreditCard className="w-6 h-6 text-pink-600" />
                       </div>
                       <div className="text-left">
                         <p className="font-semibold text-gray-900">{method.name}</p>
@@ -522,7 +522,7 @@ ${paymentMethod ? `Account: ${paymentMethod.account_number}` : ''}`;
                       </div>
                     </div>
                     {selectedPaymentMethod === method.id && (
-                      <div className="w-6 h-6 bg-blue-600 rounded-full flex items-center justify-center">
+                      <div className="w-6 h-6 bg-pink-600 rounded-full flex items-center justify-center">
                         <span className="text-white text-xs">✓</span>
                       </div>
                     )}
@@ -531,12 +531,12 @@ ${paymentMethod ? `Account: ${paymentMethod.account_number}` : ''}`;
               </div>
 
               {paymentMethodInfo && (
-                <div className="bg-blue-50 rounded-lg p-6">
+                <div className="bg-pink-50 rounded-lg p-6">
                   <h3 className="font-semibold text-gray-900 mb-4">Payment Details</h3>
                   <div className="space-y-2 text-sm text-gray-700 mb-4">
                     <p><strong>Account Number:</strong> {paymentMethodInfo.account_number}</p>
                     <p><strong>Account Name:</strong> {paymentMethodInfo.account_name}</p>
-                    <p><strong>Amount to Pay:</strong> <span className="text-xl font-bold text-teal-600">₱{finalTotal.toLocaleString('en-PH', { minimumFractionDigits: 0 })}</span></p>
+                    <p><strong>Amount to Pay:</strong> <span className="text-xl font-bold text-pink-600">₱{finalTotal.toLocaleString('en-PH', { minimumFractionDigits: 0 })}</span></p>
                   </div>
                   
                   {paymentMethodInfo.qr_code_url && (
@@ -582,8 +582,8 @@ ${paymentMethod ? `Account: ${paymentMethod.account_number}` : ''}`;
                 onClick={handleCopyOrderDetails}
                 className={`flex-1 py-3 md:py-4 rounded-2xl font-bold text-base md:text-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all flex items-center justify-center gap-2 ${
                   copied
-                    ? 'bg-gradient-to-r from-teal-400 to-teal-600 text-white'
-                    : 'bg-gradient-to-r from-blue-400 to-blue-600 hover:from-blue-500 hover:to-blue-700 text-white'
+                    ? 'bg-gradient-to-r from-pink-400 to-pink-600 text-white'
+                    : 'bg-gradient-to-r from-pink-400 to-pink-600 hover:from-pink-500 hover:to-pink-700 text-white'
                 }`}
               >
                 {copied ? (
@@ -603,7 +603,7 @@ ${paymentMethod ? `Account: ${paymentMethod.account_number}` : ''}`;
 
           {/* Order Summary Sidebar */}
           <div className="lg:col-span-1">
-            <div className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-xl p-5 md:p-6 sticky top-24 border-2 border-teal-100">
+            <div className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-xl p-5 md:p-6 sticky top-24 border-2 border-pink-100">
               <h2 className="text-lg md:text-xl font-bold text-gray-900 mb-4 md:mb-6 flex items-center gap-2">
                 Final Summary
                 <Sparkles className="w-5 h-5 text-yellow-500" />
@@ -629,12 +629,12 @@ ${paymentMethod ? `Account: ${paymentMethod.account_number}` : ''}`;
                 </div>
                 <div className="flex justify-between text-gray-600 text-xs">
                   <span>Shipping</span>
-                  <span className="font-medium text-blue-600">To be discussed via chat</span>
+                  <span className="font-medium text-pink-600">To be discussed via chat</span>
                 </div>
                 <div className="border-t-2 border-gray-200 pt-3">
                   <div className="flex justify-between items-center">
                     <span className="font-bold text-gray-900">Total</span>
-                    <span className="text-2xl font-bold text-blue-600">
+                    <span className="text-2xl font-bold text-pink-600">
                       ₱{finalTotal.toLocaleString('en-PH', { minimumFractionDigits: 0 })}
                     </span>
                   </div>

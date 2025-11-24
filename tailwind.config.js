@@ -7,23 +7,25 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Dark Blue-Green and Light Green Theme
+        // The Peptide Source PH - Magenta/Pink and Beige Theme
         primary: {
-          50: '#f0fdfa',
-          100: '#ccfbf1',
-          200: '#99f6e4',
-          300: '#5eead4',
-          400: '#2dd4bf',
-          500: '#14b8a6',
-          600: '#0d9488',
-          700: '#0f766e',
-          800: '#115e59',
-          900: '#134e4a',
+          50: '#fdf2f8',
+          100: '#fce7f3',
+          200: '#fbcfe8',
+          300: '#f9a8d4',
+          400: '#f472b6',
+          500: '#ec4899',
+          600: '#db2777',
+          700: '#be185d',
+          800: '#9f1239',
+          900: '#831843',
         },
         accent: {
-          cyan: '#06b6d4',
-          sky: '#22d3ee',
-          light: '#d1fae5',
+          beige: '#f5e6d3',
+          'beige-light': '#fef9e7',
+          'beige-dark': '#e8d4b8',
+          magenta: '#d81b60',
+          pink: '#ec4899',
         },
         gray: {
           50: '#f9fafb',
@@ -42,9 +44,9 @@ export default {
         inter: ['Inter', 'sans-serif'],
       },
       boxShadow: {
-        'soft': '0 2px 8px rgba(13, 148, 136, 0.08)',
-        'medium': '0 4px 16px rgba(13, 148, 136, 0.12)',
-        'large': '0 8px 24px rgba(13, 148, 136, 0.16)',
+        'soft': '0 2px 8px rgba(219, 39, 119, 0.08)',
+        'medium': '0 4px 16px rgba(219, 39, 119, 0.12)',
+        'large': '0 8px 24px rgba(219, 39, 119, 0.16)',
       },
       animation: {
         'fadeIn': 'fadeIn 0.4s ease-out',

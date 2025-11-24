@@ -1,48 +1,48 @@
 import React from 'react';
-import { Shield, Beaker, Sparkles, Heart } from 'lucide-react';
+import { Shield, Beaker, Crown, Heart } from 'lucide-react';
 
 const Hero: React.FC = () => {
   return (
-    <div className="relative overflow-hidden bg-gradient-to-br from-teal-50 via-emerald-50 to-green-50">
+    <div className="relative overflow-hidden bg-gradient-to-br from-pink-50 via-amber-50 to-amber-100">
       {/* Decorative Elements */}
-      <div className="absolute top-0 left-0 w-72 h-72 bg-teal-200 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-blob"></div>
-      <div className="absolute top-0 right-0 w-72 h-72 bg-emerald-200 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-blob animation-delay-2000"></div>
-      <div className="absolute -bottom-8 left-20 w-72 h-72 bg-green-200 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-blob animation-delay-4000"></div>
+      <div className="absolute top-0 left-0 w-72 h-72 bg-pink-200 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-blob"></div>
+      <div className="absolute top-0 right-0 w-72 h-72 bg-amber-200 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-blob animation-delay-2000"></div>
+      <div className="absolute -bottom-8 left-20 w-72 h-72 bg-pink-100 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-blob animation-delay-4000"></div>
 
       {/* Main Content */}
       <div className="relative container mx-auto px-4 py-8 md:py-12 lg:py-16">
         <div className="text-center max-w-5xl mx-auto">
           {/* Badge */}
-          <div className="inline-flex items-center gap-2 md:gap-2.5 bg-white/80 backdrop-blur-sm px-4 py-2 md:px-6 md:py-3 rounded-full shadow-lg mb-4 md:mb-6 lg:mb-8 border border-teal-100">
-            <Sparkles className="w-4 h-4 md:w-5 md:h-5 text-yellow-500" />
-            <span className="text-sm md:text-base lg:text-lg font-semibold bg-gradient-to-r from-teal-600 to-emerald-600 bg-clip-text text-transparent">
+          <div className="inline-flex items-center gap-2 md:gap-2.5 bg-white/80 backdrop-blur-sm px-4 py-2 md:px-6 md:py-3 rounded-full shadow-lg mb-4 md:mb-6 lg:mb-8 border border-pink-100">
+            <Crown className="w-4 h-4 md:w-5 md:h-5 text-pink-500" />
+            <span className="text-sm md:text-base lg:text-lg font-semibold bg-gradient-to-r from-pink-600 to-pink-700 bg-clip-text text-transparent">
               Premium Quality Guaranteed
             </span>
-            <Sparkles className="w-4 h-4 md:w-5 md:h-5 text-yellow-500" />
+            <Crown className="w-4 h-4 md:w-5 md:h-5 text-pink-500" />
           </div>
 
           {/* Main Heading */}
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 md:mb-8 lg:mb-10">
-            <span className="bg-gradient-to-r from-teal-600 via-emerald-600 to-green-600 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-pink-600 via-pink-500 to-pink-700 bg-clip-text text-transparent">
               Research-Grade
             </span>
             <br />
             <span className="text-gray-800">Peptides</span>
-            <Heart className="inline-block w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 lg:w-16 lg:h-16 text-green-500 ml-2 md:ml-3 mb-1 md:mb-2 animate-pulse" />
+            <Heart className="inline-block w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 lg:w-16 lg:h-16 text-pink-500 ml-2 md:ml-3 mb-1 md:mb-2 animate-pulse" />
           </h1>
           
           {/* Trust Badges */}
           <div className="grid grid-cols-2 gap-3 sm:gap-4 md:gap-6 lg:gap-8 max-w-xl md:max-w-2xl lg:max-w-3xl mx-auto mb-6 md:mb-8">
-            <div className="bg-white/80 backdrop-blur-sm rounded-2xl md:rounded-3xl p-4 sm:p-5 md:p-6 lg:p-8 shadow-xl hover:shadow-2xl transition-all transform hover:-translate-y-2 border border-teal-100">
-              <div className="bg-gradient-to-br from-teal-400 to-teal-600 p-2.5 md:p-3 lg:p-4 rounded-xl md:rounded-2xl mb-2 md:mb-3 inline-block shadow-md">
+            <div className="bg-white/80 backdrop-blur-sm rounded-2xl md:rounded-3xl p-4 sm:p-5 md:p-6 lg:p-8 shadow-xl hover:shadow-2xl transition-all transform hover:-translate-y-2 border border-pink-100">
+              <div className="bg-gradient-to-br from-pink-400 to-pink-600 p-2.5 md:p-3 lg:p-4 rounded-xl md:rounded-2xl mb-2 md:mb-3 inline-block shadow-md">
                 <Shield className="w-5 h-5 md:w-7 md:h-7 lg:w-9 lg:h-9 text-white" />
               </div>
               <h3 className="text-sm sm:text-base md:text-lg lg:text-xl font-bold text-gray-800 mb-1">Lab Tested</h3>
               <p className="text-xs sm:text-sm md:text-base text-gray-500">Third-party verified</p>
             </div>
             
-            <div className="bg-white/80 backdrop-blur-sm rounded-2xl md:rounded-3xl p-4 sm:p-5 md:p-6 lg:p-8 shadow-xl hover:shadow-2xl transition-all transform hover:-translate-y-2 border border-emerald-100">
-              <div className="bg-gradient-to-br from-emerald-400 to-emerald-600 p-2.5 md:p-3 lg:p-4 rounded-xl md:rounded-2xl mb-2 md:mb-3 inline-block shadow-md">
+            <div className="bg-white/80 backdrop-blur-sm rounded-2xl md:rounded-3xl p-4 sm:p-5 md:p-6 lg:p-8 shadow-xl hover:shadow-2xl transition-all transform hover:-translate-y-2 border border-amber-100">
+              <div className="bg-gradient-to-br from-amber-400 to-amber-500 p-2.5 md:p-3 lg:p-4 rounded-xl md:rounded-2xl mb-2 md:mb-3 inline-block shadow-md">
                 <Beaker className="w-5 h-5 md:w-7 md:h-7 lg:w-9 lg:h-9 text-white" />
               </div>
               <h3 className="text-sm sm:text-base md:text-lg lg:text-xl font-bold text-gray-800 mb-1">99%+ Purity</h3>
@@ -51,11 +51,11 @@ const Hero: React.FC = () => {
           </div>
           
           {/* Disclaimer */}
-          <div className="bg-white/90 backdrop-blur-sm rounded-2xl border-2 border-teal-100 p-3 md:p-4 shadow-lg max-w-3xl mx-auto">
+          <div className="bg-white/90 backdrop-blur-sm rounded-2xl border-2 border-pink-100 p-3 md:p-4 shadow-lg max-w-3xl mx-auto">
             <p className="text-xs sm:text-sm md:text-base text-center text-gray-600 leading-relaxed">
               <span className="inline-flex items-center gap-1 md:gap-1.5">
-                <Shield className="w-4 h-4 md:w-5 md:h-5 text-teal-600" />
-                <strong className="text-teal-700">RESEARCH USE ONLY:</strong>
+                <Shield className="w-4 h-4 md:w-5 md:h-5 text-pink-600" />
+                <strong className="text-pink-700">RESEARCH USE ONLY:</strong>
               </span>
               {' '}ALWAYS CONSULT A LICENSED HEALTHCARE PROFESSIONAL FOR PERSONALISED MEDICAL GUIDANCE
             </p>

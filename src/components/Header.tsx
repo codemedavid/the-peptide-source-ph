@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ShoppingCart, Menu, X, MessageCircle, Sparkles } from 'lucide-react';
+import { ShoppingCart, Menu, X, MessageCircle, Crown } from 'lucide-react';
 
 interface HeaderProps {
   cartItemsCount: number;
@@ -17,7 +17,7 @@ const Header: React.FC<HeaderProps> = ({ cartItemsCount, onCartClick, onMenuClic
 
   return (
     <>
-      <header className="bg-white shadow-md sticky top-0 z-50 border-b-2 border-teal-100">
+      <header className="bg-white shadow-md sticky top-0 z-50 border-b-2 border-pink-100">
         <div className="container mx-auto px-4 md:px-6 py-3 md:py-4">
           <div className="flex items-center justify-between gap-4">
             {/* Logo and Brand */}
@@ -26,26 +26,26 @@ const Header: React.FC<HeaderProps> = ({ cartItemsCount, onCartClick, onMenuClic
               className="flex items-center space-x-2 md:space-x-3 hover:opacity-90 transition-all group min-w-0 flex-1 max-w-[calc(100%-130px)] sm:max-w-none sm:flex-initial"
             >
               <div className="relative flex-shrink-0">
-                <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-xl bg-gradient-to-br from-teal-500 to-emerald-600 shadow-lg flex items-center justify-center group-hover:shadow-xl transition-all overflow-hidden border-[3px] border-white ring-2 ring-teal-400">
+                <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-xl bg-gradient-to-br from-amber-100 to-amber-50 shadow-lg flex items-center justify-center group-hover:shadow-xl transition-all overflow-hidden border-[3px] border-white ring-2 ring-pink-200">
                   <img 
                     src="/logo.jpg" 
-                    alt="KAEDRA" 
+                    alt="The Peptide Source PH" 
                     className="w-full h-full object-cover"
                   />
                 </div>
-                <div className="absolute -top-1 -right-1 bg-gradient-to-r from-yellow-400 to-yellow-500 rounded-full p-1.5 shadow-md">
-                  <Sparkles className="w-3 h-3 md:w-3.5 md:h-3.5 text-white" />
+                <div className="absolute -top-1 -right-1 bg-gradient-to-r from-pink-500 to-pink-600 rounded-full p-1.5 shadow-md">
+                  <Crown className="w-3 h-3 md:w-3.5 md:h-3.5 text-white" />
                 </div>
               </div>
               <div className="text-left min-w-0 flex-1">
-                <h1 className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl font-bold bg-gradient-to-r from-teal-600 via-emerald-600 to-green-600 bg-clip-text text-transparent leading-tight whitespace-nowrap overflow-hidden text-ellipsis">
-                  KAEDRA
+                <h1 className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl font-bold bg-gradient-to-r from-pink-600 via-pink-500 to-pink-700 bg-clip-text text-transparent leading-tight whitespace-nowrap overflow-hidden text-ellipsis">
+                  The Peptide Source PH
                 </h1>
                 <p className="text-[10px] sm:text-xs md:text-sm lg:text-base text-gray-600 font-medium flex items-center gap-1">
-                  <Sparkles className="w-2.5 h-2.5 sm:w-3 sm:h-3 md:w-3.5 md:h-3.5 text-yellow-500 flex-shrink-0" />
+                  <Crown className="w-2.5 h-2.5 sm:w-3 sm:h-3 md:w-3.5 md:h-3.5 text-pink-500 flex-shrink-0" />
                   <span className="whitespace-nowrap overflow-hidden text-ellipsis">
-                    <span className="hidden sm:inline">Research-Grade Excellence</span>
-                    <span className="sm:hidden">Research-Grade</span>
+                    <span className="hidden sm:inline">Premium Research Peptides</span>
+                    <span className="sm:hidden">Premium Peptides</span>
                   </span>
                 </p>
               </div>
@@ -57,16 +57,10 @@ const Header: React.FC<HeaderProps> = ({ cartItemsCount, onCartClick, onMenuClic
               <nav className="hidden md:flex items-center gap-2 lg:gap-3">
                 <button
                   onClick={onMenuClick}
-                  className="px-3 py-2 lg:px-4 lg:py-2 text-sm lg:text-base text-gray-700 hover:text-teal-600 hover:bg-teal-50 rounded-xl transition-all font-medium"
+                  className="px-3 py-2 lg:px-4 lg:py-2 text-sm lg:text-base text-gray-700 hover:text-pink-600 hover:bg-pink-50 rounded-xl transition-all font-medium"
                 >
                   Products
                 </button>
-                <a
-                  href="/coa"
-                  className="px-3 py-2 lg:px-4 lg:py-2 text-sm lg:text-base text-gray-700 hover:text-teal-600 hover:bg-teal-50 rounded-xl transition-all font-medium"
-                >
-                  COA Reports
-                </a>
                 <a
                   href={messengerUrl}
                   target="_blank"
@@ -81,7 +75,7 @@ const Header: React.FC<HeaderProps> = ({ cartItemsCount, onCartClick, onMenuClic
               {/* Cart Button */}
               <button
                 onClick={onCartClick}
-                className="relative bg-gradient-to-r from-teal-500 to-teal-600 hover:from-teal-600 hover:to-teal-700 text-white px-3 py-2.5 sm:px-4 sm:py-3 md:px-5 md:py-3 rounded-xl font-medium transition-all duration-200 flex items-center gap-2 shadow-md hover:shadow-lg text-sm sm:text-base md:text-lg"
+                className="relative bg-gradient-to-r from-pink-500 to-pink-600 hover:from-pink-600 hover:to-pink-700 text-white px-3 py-2.5 sm:px-4 sm:py-3 md:px-5 md:py-3 rounded-xl font-medium transition-all duration-200 flex items-center gap-2 shadow-md hover:shadow-lg text-sm sm:text-base md:text-lg"
               >
                 <ShoppingCart className="w-5 h-5 md:w-6 md:h-6" />
                 <span className="hidden sm:inline">Cart</span>
@@ -123,17 +117,10 @@ const Header: React.FC<HeaderProps> = ({ cartItemsCount, onCartClick, onMenuClic
                     onMenuClick();
                     setMobileMenuOpen(false);
                   }}
-                  className="text-left px-4 py-2.5 text-gray-700 hover:bg-teal-50 rounded-xl transition-colors font-medium text-sm border-2 border-transparent hover:border-teal-200"
+                  className="text-left px-4 py-2.5 text-gray-700 hover:bg-pink-50 rounded-xl transition-colors font-medium text-sm border-2 border-transparent hover:border-pink-200"
                 >
                   🧪 Products
                 </button>
-                <a
-                  href="/coa"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="text-left px-4 py-2.5 text-gray-700 hover:bg-teal-50 rounded-xl transition-colors font-medium text-sm border-2 border-transparent hover:border-teal-200"
-                >
-                  🛡️ COA Reports
-                </a>
                 <a
                   href={messengerUrl}
                   target="_blank"
@@ -150,7 +137,7 @@ const Header: React.FC<HeaderProps> = ({ cartItemsCount, onCartClick, onMenuClic
                       onCartClick();
                       setMobileMenuOpen(false);
                     }}
-                    className="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-gradient-to-r from-teal-500 to-teal-600 text-white rounded-xl hover:from-teal-600 hover:to-teal-700 transition-all font-medium text-sm shadow-md"
+                    className="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-gradient-to-r from-pink-500 to-pink-600 text-white rounded-xl hover:from-pink-600 hover:to-pink-700 transition-all font-medium text-sm shadow-md"
                   >
                     <ShoppingCart className="w-4 h-4" />
                     View Cart ({cartItemsCount})

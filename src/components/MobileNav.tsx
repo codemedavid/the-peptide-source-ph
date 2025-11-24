@@ -18,8 +18,8 @@ const MobileNav: React.FC<MobileNavProps> = ({ activeCategory, onCategoryClick }
             onClick={() => onCategoryClick(category.id)}
             className={`flex-shrink-0 flex items-center space-x-1.5 px-3 py-1.5 rounded-full mr-2 transition-all duration-200 text-xs ${
               activeCategory === category.id
-                ? 'bg-blue-600 text-white shadow-md'
-                : 'bg-blue-50 text-gray-700 hover:bg-blue-100'
+                ? 'bg-pink-600 text-white shadow-md'
+                : 'bg-pink-50 text-gray-700 hover:bg-pink-100'
             }`}
           >
             <span className="font-medium whitespace-nowrap">{category.name}</span>
