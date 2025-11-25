@@ -4,10 +4,9 @@ import { MessageCircle, Shield, Heart, Crown } from 'lucide-react';
 const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
   
-  // Facebook Messenger Page ID
-  const facebookPageId = '61573812453289';
-  const messengerMessage = encodeURIComponent('Hi! I would like to inquire about your peptide products.');
-  const messengerUrl = `https://m.me/${facebookPageId}?text=${messengerMessage}`;
+  // Viber contact number
+  const viberNumber = '639953928293'; // Philippines number: 09953928293
+  const viberUrl = `viber://chat?number=${viberNumber}`;
 
   return (
     <footer className="bg-gradient-to-r from-gray-800 to-gray-900 text-white">
@@ -31,15 +30,15 @@ const Footer: React.FC = () => {
             </div>
           </div>
 
-          {/* Facebook Messenger Button */}
+          {/* Viber Button */}
           <a
-            href={messengerUrl}
+            href={viberUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 bg-gradient-to-r from-blue-400 to-blue-500 hover:from-blue-500 hover:to-blue-600 text-white px-5 py-2.5 md:px-6 md:py-3 rounded-xl transition-all font-medium text-sm md:text-base shadow-lg hover:shadow-xl transform hover:scale-105"
+            className="flex items-center gap-2 bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white px-5 py-2.5 md:px-6 md:py-3 rounded-xl transition-all font-medium text-sm md:text-base shadow-lg hover:shadow-xl transform hover:scale-105"
           >
             <MessageCircle className="w-4 h-4 md:w-5 md:h-5" />
-            Chat on Messenger
+            Chat on Viber
           </a>
 
         </div>

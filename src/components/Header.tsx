@@ -10,10 +10,10 @@ interface HeaderProps {
 const Header: React.FC<HeaderProps> = ({ cartItemsCount, onCartClick, onMenuClick }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  // Facebook Messenger Page ID
-  const facebookPageId = '61573812453289';
-  const messengerMessage = encodeURIComponent('Hi! I am interested in your peptide products.');
-  const messengerUrl = `https://m.me/${facebookPageId}?text=${messengerMessage}`;
+  // Viber contact number
+  const viberNumber = '639953928293'; // Philippines number: 09953928293
+  const viberMessage = encodeURIComponent('Hi! I am interested in your peptide products.');
+  const viberUrl = `viber://chat?number=${viberNumber}`;
 
   return (
     <>
@@ -62,13 +62,13 @@ const Header: React.FC<HeaderProps> = ({ cartItemsCount, onCartClick, onMenuClic
                   Products
                 </button>
                 <a
-                  href={messengerUrl}
+                  href={viberUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-1.5 lg:gap-2 bg-gradient-to-r from-blue-400 to-blue-500 hover:from-blue-500 hover:to-blue-600 text-white px-4 py-2 lg:px-5 lg:py-2.5 rounded-xl transition-all font-medium text-sm lg:text-base shadow-md hover:shadow-lg transform hover:scale-105"
+                  className="flex items-center gap-1.5 lg:gap-2 bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white px-4 py-2 lg:px-5 lg:py-2.5 rounded-xl transition-all font-medium text-sm lg:text-base shadow-md hover:shadow-lg transform hover:scale-105"
                 >
                   <MessageCircle className="w-4 h-4 lg:w-5 lg:h-5" />
-                  Messenger
+                  Viber
                 </a>
               </nav>
 
@@ -122,14 +122,14 @@ const Header: React.FC<HeaderProps> = ({ cartItemsCount, onCartClick, onMenuClic
                   🧪 Products
                 </button>
                 <a
-                  href={messengerUrl}
+                  href={viberUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-2 px-4 py-2.5 bg-gradient-to-r from-blue-400 to-blue-500 text-white rounded-xl hover:from-blue-500 hover:to-blue-600 transition-all font-medium text-sm shadow-md"
+                  className="flex items-center justify-center gap-2 px-4 py-2.5 bg-gradient-to-r from-purple-500 to-purple-600 text-white rounded-xl hover:from-purple-600 hover:to-purple-700 transition-all font-medium text-sm shadow-md"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   <MessageCircle className="w-4 h-4" />
-                  Chat on Messenger
+                  Chat on Viber
                 </a>
                 <div className="border-t border-gray-100 pt-2 mt-1">
                   <button

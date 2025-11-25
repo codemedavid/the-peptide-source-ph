@@ -147,13 +147,12 @@ ${paymentMethod ? `Account: ${paymentMethod.account_number}` : ''}`;
   const handlePlaceOrder = () => {
     const orderDetails = generateOrderDetails();
 
-    // Send order to Facebook Messenger
-    const facebookPageId = '61573812453289';
-    const encodedMessage = encodeURIComponent(orderDetails);
-    const messengerUrl = `https://m.me/${facebookPageId}?text=${encodedMessage}`;
+    // Send order to Viber
+    const viberNumber = '639953928293'; // Philippines number: 09953928293
+    const viberUrl = `viber://chat?number=${viberNumber}`;
     
-    // Open Facebook Messenger
-    window.open(messengerUrl, '_blank');
+    // Open Viber
+    window.open(viberUrl, '_blank');
     
     // Show confirmation
     setStep('confirmation');
@@ -172,7 +171,7 @@ ${paymentMethod ? `Account: ${paymentMethod.account_number}` : ''}`;
               <Sparkles className="w-7 h-7 text-yellow-500" />
             </h1>
             <p className="text-gray-600 mb-6 text-base md:text-lg leading-relaxed">
-              Your order has been sent to our Facebook Messenger. 
+              Your order has been sent to our Viber. 
               <Heart className="inline w-5 h-5 text-pink-500 mx-1" />
               We will confirm your order and send you the payment details shortly!
             </p>
@@ -204,7 +203,7 @@ ${paymentMethod ? `Account: ${paymentMethod.account_number}` : ''}`;
               </button>
               {copied && (
                 <p className="text-sm text-pink-600 text-center mt-3 font-medium">
-                  ✓ Order details copied to clipboard! You can now paste it in Messenger or WhatsApp.
+                  ✓ Order details copied to clipboard! You can now paste it in Viber.
                 </p>
               )}
             </div>
@@ -217,7 +216,7 @@ ${paymentMethod ? `Account: ${paymentMethod.account_number}` : ''}`;
               <ul className="space-y-3 text-sm md:text-base text-gray-700">
                 <li className="flex items-start gap-3">
                   <span className="text-2xl">1️⃣</span>
-                  <span>We'll confirm your order on Facebook Messenger within 24 hours</span>
+                  <span>We'll confirm your order on Viber within 24 hours</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-2xl">2️⃣</span>
@@ -576,7 +575,7 @@ ${paymentMethod ? `Account: ${paymentMethod.account_number}` : ''}`;
                 className="flex-1 bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:from-green-500 hover:via-green-600 hover:to-green-700 text-white py-3 md:py-4 rounded-2xl font-bold text-base md:text-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all flex items-center justify-center gap-2"
               >
                 <ShieldCheck className="w-5 h-5 md:w-6 md:h-6" />
-                Send Order via Messenger
+                Send Order via Viber
               </button>
               <button
                 onClick={handleCopyOrderDetails}
