@@ -13,7 +13,7 @@ const Header: React.FC<HeaderProps> = ({ cartItemsCount, onCartClick, onMenuClic
   // Viber contact number
   const viberNumber = '639953928293'; // Philippines number: 09953928293
   const viberMessage = encodeURIComponent('Hi! I am interested in your peptide products.');
-  const viberUrl = `viber://chat?number=${viberNumber}`;
+  const viberUrl = `viber://chat?number=${viberNumber}&text=${viberMessage}`;
 
   return (
     <>

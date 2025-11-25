@@ -6,7 +6,8 @@ const Footer: React.FC = () => {
   
   // Viber contact number
   const viberNumber = '639953928293'; // Philippines number: 09953928293
-  const viberUrl = `viber://chat?number=${viberNumber}`;
+  const viberMessage = encodeURIComponent('Hi! I would like to inquire about your peptide products.');
+  const viberUrl = `viber://chat?number=${viberNumber}&text=${viberMessage}`;
 
   return (
     <footer className="bg-gradient-to-r from-gray-800 to-gray-900 text-white">

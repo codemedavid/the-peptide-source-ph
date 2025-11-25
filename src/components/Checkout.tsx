@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ArrowLeft, ShieldCheck, Package, CreditCard, Sparkles, Heart, Copy, Check } from 'lucide-react';
+import { ArrowLeft, ShieldCheck, Package, CreditCard, Sparkles, Heart, Copy, Check, RotateCw, MessageCircle } from 'lucide-react';
 import type { CartItem } from '../types';
 import { usePaymentMethods } from '../hooks/usePaymentMethods';
 
@@ -144,15 +144,24 @@ ${paymentMethod ? `Account: ${paymentMethod.account_number}` : ''}`;
     }
   };
 
-  const handlePlaceOrder = () => {
-    const orderDetails = generateOrderDetails();
-
-    // Send order to Viber
+  const openViber = (includeOrderDetails = true) => {
     const viberNumber = '639953928293'; // Philippines number: 09953928293
-    const viberUrl = `viber://chat?number=${viberNumber}`;
+    let viberMessage = '';
     
-    // Open Viber
+    if (includeOrderDetails) {
+      const orderDetails = generateOrderDetails();
+      viberMessage = encodeURIComponent('Hi! I would like to place an order:\n\n' + orderDetails);
+    } else {
+      viberMessage = encodeURIComponent('Hi! I would like to place an order.');
+    }
+    
+    const viberUrl = `viber://chat?number=${viberNumber}&text=${viberMessage}`;
     window.open(viberUrl, '_blank');
+  };
+
+  const handlePlaceOrder = () => {
+    // Open Viber with order details
+    openViber(true);
     
     // Show confirmation
     setStep('confirmation');
@@ -175,6 +184,20 @@ ${paymentMethod ? `Account: ${paymentMethod.account_number}` : ''}`;
               <Heart className="inline w-5 h-5 text-pink-500 mx-1" />
               We will confirm your order and send you the payment details shortly!
             </p>
+
+            {/* Retry Viber Button */}
+            <div className="bg-gradient-to-r from-purple-50 to-purple-100 rounded-2xl p-6 mb-6 border-2 border-purple-200">
+              <p className="text-sm text-gray-700 mb-4 text-center font-medium">
+                <strong>Didn't open Viber?</strong> Click the button below to try again:
+              </p>
+              <button
+                onClick={() => openViber(true)}
+                className="w-full py-3 rounded-xl font-bold text-base shadow-md hover:shadow-lg transform hover:scale-105 transition-all flex items-center justify-center gap-2 bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white"
+              >
+                <RotateCw className="w-5 h-5" />
+                Try Viber Again
+              </button>
+            </div>
 
             {/* Copy Order Details Option */}
             <div className="bg-gradient-to-r from-pink-50 to-amber-50 rounded-2xl p-6 mb-8 border-2 border-pink-100">
