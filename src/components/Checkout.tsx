@@ -611,6 +611,7 @@ ${paymentMethod ? `Account: ${paymentMethod.account_number}` : ''}`;
                 <ShieldCheck className="w-5 h-5 md:w-6 md:h-6" />
                 Send Order via Viber
               </button>
+            </div>
 
             <div className="flex flex-col sm:flex-row gap-3">
               <button
