@@ -8,8 +8,10 @@ const Footer: React.FC = () => {
   const viberNumber = '09953928293';
   // Viber deep link requires international format with URL-encoded plus sign
   const viberNumberForLink = '63' + viberNumber.substring(1); // Converts to 639953928293
-  // Use chat format with URL-encoded plus sign (%2B)
-  const viberUrl = `viber://chat?number=%2B${viberNumberForLink}`;
+  // Pre-filled message
+  const viberMessage = encodeURIComponent('Hi! I would like to inquire about your peptide products.');
+  // Use chat format with URL-encoded plus sign (%2B) and pre-filled message
+  const viberUrl = `viber://chat?number=%2B${viberNumberForLink}&text=${viberMessage}`;
 
   return (
     <footer className="bg-gradient-to-r from-gray-800 to-gray-900 text-white">

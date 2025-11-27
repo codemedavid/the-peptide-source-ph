@@ -152,22 +152,32 @@ ${paymentMethod ? `Account: ${paymentMethod.account_number}` : ''}`;
     // Convert 09953928293 to 639953928293, then add %2B (URL-encoded +)
     const internationalNumber = '63' + viberNumber.substring(1); // 639953928293
     
-    // Copy order details to clipboard first (always do this for easy pasting)
+    // Prepare message with order details
+    let messageText = '';
     if (includeOrderDetails) {
       const orderDetails = generateOrderDetails();
-      const fullMessage = 'Hi! I would like to place an order:\n\n' + orderDetails;
-      navigator.clipboard.writeText(fullMessage).catch(() => {
+      messageText = 'Hi! I would like to place an order:\n\n' + orderDetails;
+      
+      // Copy order details to clipboard as backup
+      navigator.clipboard.writeText(messageText).catch(() => {
         // Fallback if clipboard API fails
       });
+    } else {
+      messageText = 'Hi! I would like to place an order.';
     }
     
-    // Try multiple Viber deep link formats for better compatibility
-    // Format 1: With URL-encoded plus sign (recommended format)
-    const viberUrl1 = `viber://chat?number=%2B${internationalNumber}`;
-    // Format 2: Without plus sign (fallback)
-    const viberUrl2 = `viber://chat?number=${internationalNumber}`;
-    // Format 3: With regular plus sign (some devices)
-    const viberUrl3 = `viber://chat?number=+${internationalNumber}`;
+    // URL encode the message
+    const encodedMessage = encodeURIComponent(messageText);
+    
+    // Try multiple Viber deep link formats with pre-filled message
+    // Format 1: With URL-encoded plus sign and message (recommended format)
+    const viberUrl1 = `viber://chat?number=%2B${internationalNumber}&text=${encodedMessage}`;
+    // Format 2: Without plus sign but with message
+    const viberUrl2 = `viber://chat?number=${internationalNumber}&text=${encodedMessage}`;
+    // Format 3: With regular plus sign and message
+    const viberUrl3 = `viber://chat?number=+${internationalNumber}&text=${encodedMessage}`;
+    // Format 4: Without message (fallback if text parameter doesn't work)
+    const viberUrl4 = `viber://chat?number=%2B${internationalNumber}`;
     
     // Try to open Viber - attempt multiple formats
     const tryOpenViber = (url: string, attempt: number) => {
@@ -186,6 +196,8 @@ ${paymentMethod ? `Account: ${paymentMethod.account_number}` : ''}`;
           setTimeout(() => tryOpenViber(viberUrl2, 2), 300);
         } else if (attempt === 2) {
           setTimeout(() => tryOpenViber(viberUrl3, 3), 300);
+        } else if (attempt === 3) {
+          setTimeout(() => tryOpenViber(viberUrl4, 4), 300);
         }
       } catch (e) {
         // Fallback to window.open
