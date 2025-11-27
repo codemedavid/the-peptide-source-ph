@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { ArrowLeft, ShieldCheck, Package, CreditCard, Sparkles, Heart, Copy, Check, RotateCw, MessageCircle } from 'lucide-react';
 import type { CartItem } from '../types';
 import { usePaymentMethods } from '../hooks/usePaymentMethods';
+import { supabase } from '../lib/supabase';
 
 interface CheckoutProps {
   cartItems: CartItem[];
@@ -165,12 +166,78 @@ ${paymentMethod ? `Account: ${paymentMethod.account_number}` : ''}`;
     window.location.href = viberUrl;
   };
 
-  const handlePlaceOrder = () => {
-    // Open Viber with order details
-    openViber(true);
-    
-    // Show confirmation
-    setStep('confirmation');
+  const handlePlaceOrder = async () => {
+    try {
+      // Save order to database
+      const orderItems = cartItems.map(item => ({
+        product_id: item.productId,
+        product_name: item.name,
+        variation_id: item.variationId,
+        variation_name: item.variationName,
+        quantity: item.quantity,
+        price: item.price,
+        total: item.price * item.quantity
+      }));
+
+      const { data: order, error: orderError } = await supabase
+        .from('orders')
+        .insert({
+          customer_name: fullName,
+          customer_email: email,
+          customer_phone: phone,
+          customer_address: address,
+          customer_city: city,
+          customer_state: state,
+          customer_zip_code: zipCode,
+          customer_country: country,
+          order_items: orderItems,
+          subtotal: totalPrice,
+          shipping_fee: null,
+          total_price: finalTotal,
+          payment_method: selectedPaymentMethod,
+          notes: notes || null,
+          status: 'pending',
+          viber_sent: false
+        })
+        .select()
+        .single();
+
+      if (orderError) {
+        console.error('Error saving order:', orderError);
+        // Still proceed even if save fails
+      }
+
+      // Try to send order to Viber automatically via webhook/API
+      if (order) {
+        try {
+          // Call Supabase Edge Function to send to Viber
+          const { error: viberError } = await supabase.functions.invoke('send-viber-message', {
+            body: {
+              order_id: order.id,
+              customer_phone: phone,
+              order_details: generateOrderDetails()
+            }
+          });
+
+          if (viberError) {
+            console.log('Viber auto-send not configured, customer will send manually');
+          }
+        } catch (err) {
+          console.log('Viber function not available, customer will send manually');
+        }
+      }
+
+      // Open Viber with order details (fallback if auto-send doesn't work)
+      openViber(true);
+      
+      // Show confirmation
+      setStep('confirmation');
+    } catch (error) {
+      console.error('Error placing order:', error);
+      // Still open Viber even if save fails
+      openViber(true);
+      setStep('confirmation');
+    }
   };
 
   if (step === 'confirmation') {
