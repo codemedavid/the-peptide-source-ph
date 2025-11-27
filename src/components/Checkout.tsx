@@ -160,17 +160,38 @@ ${paymentMethod ? `Account: ${paymentMethod.account_number}` : ''}`;
       });
     }
     
-    // Use viber://chat?number= format with international format
-    // Format: viber://chat?number=COUNTRYCODE+NUMBER (no + sign, no spaces)
-    const viberUrl = `viber://chat?number=${internationalNumber}`;
+    // Try multiple Viber deep link formats for better compatibility
+    // Format 1: Standard chat format
+    const viberUrl1 = `viber://chat?number=${internationalNumber}`;
+    // Format 2: Try with just the local number (without country code)
+    const localNumber = '09953928293';
+    const viberUrl2 = `viber://chat?number=${localNumber}`;
     
-    // Try to open Viber chat
-    // If it fails, fallback to opening in new window
-    try {
-      window.location.href = viberUrl;
-    } catch (e) {
-      window.open(viberUrl, '_blank');
-    }
+    // Try to open Viber - attempt multiple formats
+    const tryOpenViber = (url: string, attempt: number) => {
+      try {
+        // Create a hidden link and click it (more reliable than window.location)
+        const link = document.createElement('a');
+        link.href = url;
+        link.target = '_blank';
+        link.style.display = 'none';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        
+        // If first attempt fails, try alternative format after a delay
+        if (attempt === 1) {
+          setTimeout(() => {
+            tryOpenViber(viberUrl2, 2);
+          }, 500);
+        }
+      } catch (e) {
+        // Fallback to window.open
+        window.open(url, '_blank');
+      }
+    };
+    
+    tryOpenViber(viberUrl1, 1);
   };
 
   const handlePlaceOrder = async () => {
@@ -272,11 +293,16 @@ ${paymentMethod ? `Account: ${paymentMethod.account_number}` : ''}`;
               </p>
               <button
                 onClick={() => openViber(true)}
-                className="w-full py-3 rounded-xl font-bold text-base shadow-md hover:shadow-lg transform hover:scale-105 transition-all flex items-center justify-center gap-2 bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white"
+                className="w-full py-3 rounded-xl font-bold text-base shadow-md hover:shadow-lg transform hover:scale-105 transition-all flex items-center justify-center gap-2 bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white mb-3"
               >
                 <RotateCw className="w-5 h-5" />
                 Try Viber Again
               </button>
+              <div className="bg-white/80 rounded-lg p-4 text-center">
+                <p className="text-xs text-gray-600 mb-2">Or manually add this number in Viber:</p>
+                <p className="text-lg font-bold text-purple-600">+639953928293</p>
+                <p className="text-xs text-gray-500 mt-2">Order details are already copied to your clipboard - just paste and send!</p>
+              </div>
             </div>
 
             {/* Copy Order Details Option */}
