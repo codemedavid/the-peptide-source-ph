@@ -4,10 +4,10 @@ import { MessageCircle, Shield, Heart, Crown } from 'lucide-react';
 const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
   
-  // Viber contact number in +63 format
-  const viberNumber = '+639953928293';
-  // Viber deep link requires number without + sign
-  const viberNumberForLink = viberNumber.replace('+', '');
+  // Viber contact number: (0995) 392 8293
+  const viberNumber = '09953928293';
+  // Viber deep link requires international format (remove leading 0, add country code)
+  const viberNumberForLink = '63' + viberNumber.substring(1); // Converts to 639953928293
   // Use chat format to open chat directly
   const viberUrl = `viber://chat?number=${viberNumberForLink}`;
 

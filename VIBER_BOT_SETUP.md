@@ -4,7 +4,7 @@ This guide will help you set up automatic Viber messaging so customer orders are
 
 ## 📋 Prerequisites
 
-1. A Viber account with the number: **+639953928293**
+1. A Viber account with the number: **(0995) 392 8293**
 2. Access to Viber Business Account (free)
 3. Supabase project with Edge Functions enabled
 
@@ -60,7 +60,7 @@ This guide will help you set up automatic Viber messaging so customer orders are
 
 3. **Add Recipient Number (Optional):**
    - **Name:** `VIBER_RECIPIENT_NUMBER`
-   - **Value:** `+639953928293` (your Viber number)
+   - **Value:** `09953928293` (your Viber number: (0995) 392 8293)
    - Click "Save"
 
 ---
@@ -110,7 +110,7 @@ This guide will help you set up automatic Viber messaging so customer orders are
    - Token should start with numbers and contain letters/numbers
 
 2. **Check Recipient Number:**
-   - Must be in the format: `+639953928293`
+   - Must be in the format: `09953928293` (will be converted to international format automatically)
    - No + sign, no spaces
    - Must be the number registered with your Viber account
 

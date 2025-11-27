@@ -146,10 +146,10 @@ ${paymentMethod ? `Account: ${paymentMethod.account_number}` : ''}`;
   };
 
   const openViber = (includeOrderDetails = true) => {
-    // Viber number in +63 format
-    const viberNumber = '+639953928293';
-    // Viber deep link requires number without + sign
-    const internationalNumber = viberNumber.replace('+', '');
+    // Viber number: (0995) 392 8293
+    const viberNumber = '09953928293';
+    // Viber deep link requires international format (remove leading 0, add country code)
+    const internationalNumber = '63' + viberNumber.substring(1); // Converts 09953928293 to 639953928293
     
     // Copy order details to clipboard first (always do this for easy pasting)
     if (includeOrderDetails) {
@@ -161,11 +161,10 @@ ${paymentMethod ? `Account: ${paymentMethod.account_number}` : ''}`;
     }
     
     // Try multiple Viber deep link formats for better compatibility
-    // Format 1: Standard chat format
+    // Format 1: International format (most common)
     const viberUrl1 = `viber://chat?number=${internationalNumber}`;
-    // Format 2: Try with just the local number (without country code)
-    const localNumber = '09953928293';
-    const viberUrl2 = `viber://chat?number=${localNumber}`;
+    // Format 2: Try with local number format
+    const viberUrl2 = `viber://chat?number=${viberNumber}`;
     
     // Try to open Viber - attempt multiple formats
     const tryOpenViber = (url: string, attempt: number) => {
@@ -300,7 +299,7 @@ ${paymentMethod ? `Account: ${paymentMethod.account_number}` : ''}`;
               </button>
               <div className="bg-white/80 rounded-lg p-4 text-center">
                 <p className="text-xs text-gray-600 mb-2">Or manually add this number in Viber:</p>
-                <p className="text-lg font-bold text-purple-600">+639953928293</p>
+                <p className="text-lg font-bold text-purple-600">(0995) 392 8293</p>
                 <p className="text-xs text-gray-500 mt-2">Order details are already copied to your clipboard - just paste and send!</p>
               </div>
             </div>
