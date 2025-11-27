@@ -147,26 +147,22 @@ ${paymentMethod ? `Account: ${paymentMethod.account_number}` : ''}`;
   const openViber = (includeOrderDetails = true) => {
     const viberNumber = '639953928293'; // Philippines number: 09953928293
     
-    // Viber deep link format: viber://chat?number=<number>
-    // This opens Viber chat with the specified number
-    let viberUrl = `viber://chat?number=${viberNumber}`;
-    
-    // If order details are included, try to add message (some Viber versions support this)
+    // Copy order details to clipboard first (always do this for easy pasting)
     if (includeOrderDetails) {
       const orderDetails = generateOrderDetails();
-      const viberMessage = encodeURIComponent('Hi! I would like to place an order:\n\n' + orderDetails);
-      // Try with message parameter (may not work on all devices)
-      viberUrl = `viber://chat?number=${viberNumber}&text=${viberMessage}`;
-      
-      // Also copy to clipboard as backup
       const fullMessage = 'Hi! I would like to place an order:\n\n' + orderDetails;
       navigator.clipboard.writeText(fullMessage).catch(() => {
         // Fallback if clipboard API fails
       });
     }
     
-    // Open Viber app
-    window.open(viberUrl, '_blank');
+    // Use viber://keypad?number= format - most reliable for opening Viber
+    // This opens Viber with the number ready to chat
+    const viberUrl = `viber://keypad?number=${viberNumber}`;
+    
+    // Use window.location.href for better mobile deep link support
+    // This works better than window.open for app deep links
+    window.location.href = viberUrl;
   };
 
   const handlePlaceOrder = () => {
