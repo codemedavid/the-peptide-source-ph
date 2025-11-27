@@ -12,7 +12,7 @@ interface CheckoutProps {
 
 const Checkout: React.FC<CheckoutProps> = ({ cartItems, totalPrice, onBack }) => {
   const { paymentMethods } = usePaymentMethods();
-  const [step, setStep] = useState<'details' | 'payment' | 'confirmation'>('details');
+  const [step, setStep] = useState<'details' | 'payment' | 'copy-order' | 'confirmation'>('details');
   
   // Customer Details
   const [fullName, setFullName] = useState('');
@@ -30,6 +30,7 @@ const Checkout: React.FC<CheckoutProps> = ({ cartItems, totalPrice, onBack }) =>
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('');
   const [notes, setNotes] = useState('');
   const [copied, setCopied] = useState(false);
+  const [orderCopied, setOrderCopied] = useState(false);
 
   React.useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -215,7 +216,7 @@ ${paymentMethod ? `Account: ${paymentMethod.account_number}` : ''}`;
 
   const handlePlaceOrder = async () => {
     try {
-      // Save order to database
+      // Save order to database first
       const orderItems = cartItems.map(item => ({
         product_id: item.productId,
         product_name: item.name,
@@ -274,16 +275,48 @@ ${paymentMethod ? `Account: ${paymentMethod.account_number}` : ''}`;
         }
       }
 
-      // Open Viber with order details (fallback if auto-send doesn't work)
-      openViber(true);
-      
-      // Show confirmation
-      setStep('confirmation');
+      // Go to copy order step (customer must copy before opening Viber)
+      setStep('copy-order');
     } catch (error) {
       console.error('Error placing order:', error);
-      // Still open Viber even if save fails
-      openViber(true);
-      setStep('confirmation');
+      // Still proceed to copy step even if save fails
+      setStep('copy-order');
+    }
+  };
+
+  const handleCopyAndOpenViber = async () => {
+    // Copy order details to clipboard
+    const orderDetails = generateOrderDetails();
+    const fullMessage = 'Hi! I would like to place an order:\n\n' + orderDetails;
+    
+    try {
+      await navigator.clipboard.writeText(fullMessage);
+      setOrderCopied(true);
+      
+      // Wait a moment to show the copied state, then open Viber
+      setTimeout(() => {
+        openViber(false); // Don't copy again, already copied
+        setStep('confirmation');
+      }, 500);
+    } catch (err) {
+      // Fallback for older browsers
+      const textArea = document.createElement('textarea');
+      textArea.value = fullMessage;
+      textArea.style.position = 'fixed';
+      textArea.style.opacity = '0';
+      document.body.appendChild(textArea);
+      textArea.select();
+      try {
+        document.execCommand('copy');
+        setOrderCopied(true);
+        setTimeout(() => {
+          openViber(false);
+          setStep('confirmation');
+        }, 500);
+      } catch (fallbackErr) {
+        alert('Please copy the order details manually and then click "Open Viber"');
+      }
+      document.body.removeChild(textArea);
     }
   };
 
@@ -611,6 +644,62 @@ ${paymentMethod ? `Account: ${paymentMethod.account_number}` : ''}`;
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Copy Order Step - Customer must copy order details before opening Viber
+  if (step === 'copy-order') {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-pink-50 via-amber-50 to-amber-100 flex items-center justify-center px-4 py-12">
+        <div className="max-w-2xl w-full">
+          <div className="bg-white/90 backdrop-blur-sm rounded-3xl shadow-2xl p-8 md:p-12 border-2 border-purple-100">
+            <div className="text-center mb-8">
+              <div className="bg-gradient-to-br from-purple-400 to-purple-600 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6 shadow-xl">
+                <Copy className="w-10 h-10 text-white" />
+              </div>
+              <h1 className="text-2xl md:text-3xl font-bold mb-4 text-gray-900">
+                Copy Your Order Details
+              </h1>
+              <p className="text-gray-600 mb-6">
+                Please copy your order details first, then we'll open Viber for you to paste and send.
+              </p>
+            </div>
+
+            {/* Order Details Preview */}
+            <div className="bg-gray-50 rounded-2xl p-6 mb-6 border-2 border-gray-200 max-h-64 overflow-y-auto">
+              <pre className="text-xs md:text-sm text-gray-700 whitespace-pre-wrap font-mono">
+                {generateOrderDetails()}
+              </pre>
+            </div>
+
+            {/* Copy and Open Viber Button */}
+            <button
+              onClick={handleCopyAndOpenViber}
+              className={`w-full py-4 rounded-xl font-bold text-base md:text-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all flex items-center justify-center gap-3 ${
+                orderCopied
+                  ? 'bg-gradient-to-r from-green-500 to-green-600 text-white'
+                  : 'bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white'
+              }`}
+            >
+              {orderCopied ? (
+                <>
+                  <Check className="w-6 h-6" />
+                  Order Details Copied! Opening Viber...
+                </>
+              ) : (
+                <>
+                  <Copy className="w-6 h-6" />
+                  Copy Order Details & Open Viber
+                </>
+              )}
+            </button>
+
+            <p className="text-xs text-gray-500 text-center mt-4">
+              💡 Your order details will be copied to clipboard. Just paste it in Viber and send!
+            </p>
           </div>
         </div>
       </div>
