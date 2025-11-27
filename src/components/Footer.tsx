@@ -5,7 +5,7 @@ const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
   
   // Viber contact number
-  const viberNumber = '639953928293'; // Philippines number: 09953928293
+  const viberNumber = '09953928293'; // Philippines number: 09953928293
   // Use keypad format for better compatibility
   const viberUrl = `viber://keypad?number=${viberNumber}`;
 

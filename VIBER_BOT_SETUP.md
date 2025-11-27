@@ -60,7 +60,7 @@ This guide will help you set up automatic Viber messaging so customer orders are
 
 3. **Add Recipient Number (Optional):**
    - **Name:** `VIBER_RECIPIENT_NUMBER`
-   - **Value:** `639953928293` (your Viber number in international format)
+   - **Value:** `09953928293` (your Viber number)
    - Click "Save"
 
 ---
@@ -110,7 +110,7 @@ This guide will help you set up automatic Viber messaging so customer orders are
    - Token should start with numbers and contain letters/numbers
 
 2. **Check Recipient Number:**
-   - Must be in international format: `639953928293`
+   - Must be in the format: `09953928293`
    - No + sign, no spaces
    - Must be the number registered with your Viber account
 

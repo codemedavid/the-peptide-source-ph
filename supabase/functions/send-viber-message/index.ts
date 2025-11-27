@@ -6,7 +6,7 @@ import { serve } from 'https://deno.land/std@0.168.0/http/server.ts';
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 
 const VIBER_BOT_TOKEN = Deno.env.get('VIBER_BOT_TOKEN');
-const VIBER_RECIPIENT_NUMBER = Deno.env.get('VIBER_RECIPIENT_NUMBER') || '639953928293';
+const VIBER_RECIPIENT_NUMBER = Deno.env.get('VIBER_RECIPIENT_NUMBER') || '09953928293';
 
 serve(async (req) => {
   try {

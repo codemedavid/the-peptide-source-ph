@@ -11,7 +11,7 @@ const Header: React.FC<HeaderProps> = ({ cartItemsCount, onCartClick, onMenuClic
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   // Viber contact number
-  const viberNumber = '639953928293'; // Philippines number: 09953928293
+  const viberNumber = '09953928293'; // Philippines number: 09953928293
   // Use keypad format for better compatibility
   const viberUrl = `viber://keypad?number=${viberNumber}`;
 

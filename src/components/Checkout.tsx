@@ -146,7 +146,7 @@ ${paymentMethod ? `Account: ${paymentMethod.account_number}` : ''}`;
   };
 
   const openViber = (includeOrderDetails = true) => {
-    const viberNumber = '639953928293'; // Philippines number: 09953928293
+    const viberNumber = '09953928293'; // Philippines number: 09953928293
     
     // Copy order details to clipboard first (always do this for easy pasting)
     if (includeOrderDetails) {
