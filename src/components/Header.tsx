@@ -10,13 +10,12 @@ interface HeaderProps {
 const Header: React.FC<HeaderProps> = ({ cartItemsCount, onCartClick, onMenuClick }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  // Viber contact number - convert to international format for deep link
-  const localNumber = '09953928293';
-  const viberNumber = localNumber.startsWith('0') 
-    ? '63' + localNumber.substring(1) 
-    : localNumber;
+  // Viber contact number in +63 format
+  const viberNumber = '+639953928293';
+  // Viber deep link requires number without + sign
+  const viberNumberForLink = viberNumber.replace('+', '');
   // Use chat format to open chat directly
-  const viberUrl = `viber://chat?number=${viberNumber}`;
+  const viberUrl = `viber://chat?number=${viberNumberForLink}`;
 
   return (
     <>

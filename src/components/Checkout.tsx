@@ -146,12 +146,10 @@ ${paymentMethod ? `Account: ${paymentMethod.account_number}` : ''}`;
   };
 
   const openViber = (includeOrderDetails = true) => {
-    // Viber requires international format without leading 0
-    // Convert 09953928293 to 639953928293
-    const localNumber = '09953928293';
-    const internationalNumber = localNumber.startsWith('0') 
-      ? '63' + localNumber.substring(1) 
-      : localNumber;
+    // Viber number in +63 format
+    const viberNumber = '+639953928293';
+    // Viber deep link requires number without + sign
+    const internationalNumber = viberNumber.replace('+', '');
     
     // Copy order details to clipboard first (always do this for easy pasting)
     if (includeOrderDetails) {

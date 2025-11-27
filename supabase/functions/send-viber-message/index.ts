@@ -6,7 +6,7 @@ import { serve } from 'https://deno.land/std@0.168.0/http/server.ts';
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 
 const VIBER_BOT_TOKEN = Deno.env.get('VIBER_BOT_TOKEN');
-const VIBER_RECIPIENT_NUMBER = Deno.env.get('VIBER_RECIPIENT_NUMBER') || '09953928293';
+const VIBER_RECIPIENT_NUMBER = Deno.env.get('VIBER_RECIPIENT_NUMBER') || '+639953928293';
 
 serve(async (req) => {
   try {
@@ -57,6 +57,8 @@ serve(async (req) => {
 
     // Send message via Viber Bot API
     // Note: This requires the recipient to have subscribed to your bot
+    // Viber API needs number without + sign
+    const recipientNumber = VIBER_RECIPIENT_NUMBER.replace('+', '');
     const viberResponse = await fetch('https://chatapi.viber.com/pa/send_message', {
       method: 'POST',
       headers: {
@@ -64,7 +66,7 @@ serve(async (req) => {
         'X-Viber-Auth-Token': VIBER_BOT_TOKEN
       },
       body: JSON.stringify({
-        receiver: VIBER_RECIPIENT_NUMBER,
+        receiver: recipientNumber,
         type: 'text',
         text: message
       })
