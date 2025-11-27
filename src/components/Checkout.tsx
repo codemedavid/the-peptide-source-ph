@@ -148,8 +148,9 @@ ${paymentMethod ? `Account: ${paymentMethod.account_number}` : ''}`;
   const openViber = (includeOrderDetails = true) => {
     // Viber number: (0995) 392 8293
     const viberNumber = '09953928293';
-    // Viber deep link requires international format (remove leading 0, add country code)
-    const internationalNumber = '63' + viberNumber.substring(1); // Converts 09953928293 to 639953928293
+    // Viber deep link requires international format with URL-encoded plus sign
+    // Convert 09953928293 to 639953928293, then add %2B (URL-encoded +)
+    const internationalNumber = '63' + viberNumber.substring(1); // 639953928293
     
     // Copy order details to clipboard first (always do this for easy pasting)
     if (includeOrderDetails) {
@@ -161,10 +162,12 @@ ${paymentMethod ? `Account: ${paymentMethod.account_number}` : ''}`;
     }
     
     // Try multiple Viber deep link formats for better compatibility
-    // Format 1: International format (most common)
-    const viberUrl1 = `viber://chat?number=${internationalNumber}`;
-    // Format 2: Try with local number format
-    const viberUrl2 = `viber://chat?number=${viberNumber}`;
+    // Format 1: With URL-encoded plus sign (recommended format)
+    const viberUrl1 = `viber://chat?number=%2B${internationalNumber}`;
+    // Format 2: Without plus sign (fallback)
+    const viberUrl2 = `viber://chat?number=${internationalNumber}`;
+    // Format 3: With regular plus sign (some devices)
+    const viberUrl3 = `viber://chat?number=+${internationalNumber}`;
     
     // Try to open Viber - attempt multiple formats
     const tryOpenViber = (url: string, attempt: number) => {
@@ -178,15 +181,20 @@ ${paymentMethod ? `Account: ${paymentMethod.account_number}` : ''}`;
         link.click();
         document.body.removeChild(link);
         
-        // If first attempt fails, try alternative format after a delay
+        // Try alternative formats if first attempt doesn't work
         if (attempt === 1) {
-          setTimeout(() => {
-            tryOpenViber(viberUrl2, 2);
-          }, 500);
+          setTimeout(() => tryOpenViber(viberUrl2, 2), 300);
+        } else if (attempt === 2) {
+          setTimeout(() => tryOpenViber(viberUrl3, 3), 300);
         }
       } catch (e) {
         // Fallback to window.open
-        window.open(url, '_blank');
+        try {
+          window.open(url, '_blank');
+        } catch (err) {
+          // Last resort: try window.location
+          window.location.href = url;
+        }
       }
     };
     

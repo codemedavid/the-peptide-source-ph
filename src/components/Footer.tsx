@@ -6,10 +6,10 @@ const Footer: React.FC = () => {
   
   // Viber contact number: (0995) 392 8293
   const viberNumber = '09953928293';
-  // Viber deep link requires international format (remove leading 0, add country code)
+  // Viber deep link requires international format with URL-encoded plus sign
   const viberNumberForLink = '63' + viberNumber.substring(1); // Converts to 639953928293
-  // Use chat format to open chat directly
-  const viberUrl = `viber://chat?number=${viberNumberForLink}`;
+  // Use chat format with URL-encoded plus sign (%2B)
+  const viberUrl = `viber://chat?number=%2B${viberNumberForLink}`;
 
   return (
     <footer className="bg-gradient-to-r from-gray-800 to-gray-900 text-white">
