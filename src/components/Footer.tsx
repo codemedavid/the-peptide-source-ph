@@ -6,6 +6,8 @@ const Footer: React.FC = () => {
   
   // Viber contact number
   const viberNumber = '639953928293'; // Philippines number: 09953928293
+  // Viber deep link format: viber://chat?number=<number>
+  // This opens Viber chat with the specified number
   const viberMessage = encodeURIComponent('Hi! I would like to inquire about your peptide products.');
   const viberUrl = `viber://chat?number=${viberNumber}&text=${viberMessage}`;
 

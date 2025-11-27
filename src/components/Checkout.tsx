@@ -12,7 +12,6 @@ interface CheckoutProps {
 const Checkout: React.FC<CheckoutProps> = ({ cartItems, totalPrice, onBack }) => {
   const { paymentMethods } = usePaymentMethods();
   const [step, setStep] = useState<'details' | 'payment' | 'confirmation'>('details');
-  const [selectedPlatform, setSelectedPlatform] = useState<'messenger' | 'viber' | null>(null);
   
   // Customer Details
   const [fullName, setFullName] = useState('');
@@ -145,46 +144,34 @@ ${paymentMethod ? `Account: ${paymentMethod.account_number}` : ''}`;
     }
   };
 
-  const openMessenger = (includeOrderDetails = true) => {
-    const facebookPageId = '61583176517481';
-    let messengerMessage = '';
-    
-    if (includeOrderDetails) {
-      const orderDetails = generateOrderDetails();
-      messengerMessage = encodeURIComponent(orderDetails);
-    } else {
-      messengerMessage = encodeURIComponent('Hi! I would like to place an order.');
-    }
-    
-    const messengerUrl = `https://m.me/${facebookPageId}?text=${messengerMessage}`;
-    window.open(messengerUrl, '_blank');
-  };
-
   const openViber = (includeOrderDetails = true) => {
     const viberNumber = '639953928293'; // Philippines number: 09953928293
-    let viberMessage = '';
     
+    // Viber deep link format: viber://chat?number=<number>
+    // This opens Viber chat with the specified number
+    let viberUrl = `viber://chat?number=${viberNumber}`;
+    
+    // If order details are included, try to add message (some Viber versions support this)
     if (includeOrderDetails) {
       const orderDetails = generateOrderDetails();
-      viberMessage = encodeURIComponent('Hi! I would like to place an order:\n\n' + orderDetails);
-    } else {
-      viberMessage = encodeURIComponent('Hi! I would like to place an order.');
+      const viberMessage = encodeURIComponent('Hi! I would like to place an order:\n\n' + orderDetails);
+      // Try with message parameter (may not work on all devices)
+      viberUrl = `viber://chat?number=${viberNumber}&text=${viberMessage}`;
+      
+      // Also copy to clipboard as backup
+      const fullMessage = 'Hi! I would like to place an order:\n\n' + orderDetails;
+      navigator.clipboard.writeText(fullMessage).catch(() => {
+        // Fallback if clipboard API fails
+      });
     }
     
-    const viberUrl = `viber://chat?number=${viberNumber}&text=${viberMessage}`;
+    // Open Viber app
     window.open(viberUrl, '_blank');
   };
 
-  const handlePlaceOrder = (platform: 'messenger' | 'viber') => {
-    // Set selected platform
-    setSelectedPlatform(platform);
-    
-    // Open the selected platform with order details
-    if (platform === 'messenger') {
-      openMessenger(true);
-    } else {
-      openViber(true);
-    }
+  const handlePlaceOrder = () => {
+    // Open Viber with order details
+    openViber(true);
     
     // Show confirmation
     setStep('confirmation');
@@ -203,40 +190,23 @@ ${paymentMethod ? `Account: ${paymentMethod.account_number}` : ''}`;
               <Sparkles className="w-7 h-7 text-yellow-500" />
             </h1>
             <p className="text-gray-600 mb-6 text-base md:text-lg leading-relaxed">
-              Your order has been sent via {selectedPlatform === 'messenger' ? 'Messenger' : 'Viber'}. 
+              Your order has been sent to our Viber. 
               <Heart className="inline w-5 h-5 text-pink-500 mx-1" />
               We will confirm your order and send you the payment details shortly!
             </p>
 
-            {/* Retry Buttons */}
-            <div className="bg-gradient-to-r from-gray-50 to-gray-100 rounded-2xl p-6 mb-6 border-2 border-gray-200">
+            {/* Retry Viber Button */}
+            <div className="bg-gradient-to-r from-purple-50 to-purple-100 rounded-2xl p-6 mb-6 border-2 border-purple-200">
               <p className="text-sm text-gray-700 mb-4 text-center font-medium">
-                <strong>Didn't open {selectedPlatform === 'messenger' ? 'Messenger' : 'Viber'}?</strong> Try again or use the other option:
+                <strong>Didn't open Viber?</strong> Click the button below to try again:
               </p>
-              <div className="flex flex-col sm:flex-row gap-3">
-                <button
-                  onClick={() => openMessenger(true)}
-                  className={`flex-1 py-3 rounded-xl font-bold text-base shadow-md hover:shadow-lg transform hover:scale-105 transition-all flex items-center justify-center gap-2 ${
-                    selectedPlatform === 'messenger'
-                      ? 'bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white'
-                      : 'bg-gradient-to-r from-blue-400 to-blue-500 hover:from-blue-500 hover:to-blue-600 text-white'
-                  }`}
-                >
-                  <RotateCw className="w-5 h-5" />
-                  Try Messenger {selectedPlatform === 'messenger' ? 'Again' : ''}
-                </button>
-                <button
-                  onClick={() => openViber(true)}
-                  className={`flex-1 py-3 rounded-xl font-bold text-base shadow-md hover:shadow-lg transform hover:scale-105 transition-all flex items-center justify-center gap-2 ${
-                    selectedPlatform === 'viber'
-                      ? 'bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white'
-                      : 'bg-gradient-to-r from-purple-400 to-purple-500 hover:from-purple-500 hover:to-purple-600 text-white'
-                  }`}
-                >
-                  <RotateCw className="w-5 h-5" />
-                  Try Viber {selectedPlatform === 'viber' ? 'Again' : ''}
-                </button>
-              </div>
+              <button
+                onClick={() => openViber(true)}
+                className="w-full py-3 rounded-xl font-bold text-base shadow-md hover:shadow-lg transform hover:scale-105 transition-all flex items-center justify-center gap-2 bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white"
+              >
+                <RotateCw className="w-5 h-5" />
+                Try Viber Again
+              </button>
             </div>
 
             {/* Copy Order Details Option */}
@@ -266,7 +236,7 @@ ${paymentMethod ? `Account: ${paymentMethod.account_number}` : ''}`;
               </button>
               {copied && (
                 <p className="text-sm text-pink-600 text-center mt-3 font-medium">
-                  ✓ Order details copied to clipboard! You can now paste it in Messenger or Viber.
+                  ✓ Order details copied to clipboard! You can now paste it in Viber.
                 </p>
               )}
             </div>
@@ -279,7 +249,7 @@ ${paymentMethod ? `Account: ${paymentMethod.account_number}` : ''}`;
               <ul className="space-y-3 text-sm md:text-base text-gray-700">
                 <li className="flex items-start gap-3">
                   <span className="text-2xl">1️⃣</span>
-                  <span>We'll confirm your order on {selectedPlatform === 'messenger' ? 'Messenger' : 'Viber'} within 24 hours</span>
+                  <span>We'll confirm your order on Viber within 24 hours</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-2xl">2️⃣</span>
@@ -632,32 +602,15 @@ ${paymentMethod ? `Account: ${paymentMethod.account_number}` : ''}`;
               />
             </div>
 
-            {/* Choose Messaging Platform */}
-            <div className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg p-5 md:p-6 border-2 border-pink-100 mb-6">
-              <h2 className="text-lg md:text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-                <MessageCircle className="w-5 h-5 md:w-6 md:h-6 text-pink-600" />
-                Choose How to Send Your Order
-              </h2>
-              <p className="text-sm text-gray-600 mb-4">
-                Select your preferred messaging platform to send your order:
-              </p>
-              <div className="flex flex-col sm:flex-row gap-3">
-                <button
-                  onClick={() => handlePlaceOrder('messenger')}
-                  className="flex-1 bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 hover:from-blue-500 hover:via-blue-600 hover:to-blue-700 text-white py-3 md:py-4 rounded-2xl font-bold text-base md:text-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all flex items-center justify-center gap-2"
-                >
-                  <MessageCircle className="w-5 h-5 md:w-6 md:h-6" />
-                  Send via Messenger
-                </button>
-                <button
-                  onClick={() => handlePlaceOrder('viber')}
-                  className="flex-1 bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:from-purple-600 hover:via-purple-700 hover:to-purple-800 text-white py-3 md:py-4 rounded-2xl font-bold text-base md:text-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all flex items-center justify-center gap-2"
-                >
-                  <MessageCircle className="w-5 h-5 md:w-6 md:h-6" />
-                  Send via Viber
-                </button>
-              </div>
-            </div>
+            {/* Send Order via Viber */}
+            <div className="flex flex-col sm:flex-row gap-3">
+              <button
+                onClick={handlePlaceOrder}
+                className="flex-1 bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:from-purple-600 hover:via-purple-700 hover:to-purple-800 text-white py-3 md:py-4 rounded-2xl font-bold text-base md:text-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all flex items-center justify-center gap-2"
+              >
+                <ShieldCheck className="w-5 h-5 md:w-6 md:h-6" />
+                Send Order via Viber
+              </button>
 
             <div className="flex flex-col sm:flex-row gap-3">
               <button
