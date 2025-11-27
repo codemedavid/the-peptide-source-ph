@@ -146,7 +146,12 @@ ${paymentMethod ? `Account: ${paymentMethod.account_number}` : ''}`;
   };
 
   const openViber = (includeOrderDetails = true) => {
-    const viberNumber = '09953928293'; // Philippines number: 09953928293
+    // Viber requires international format without leading 0
+    // Convert 09953928293 to 639953928293
+    const localNumber = '09953928293';
+    const internationalNumber = localNumber.startsWith('0') 
+      ? '63' + localNumber.substring(1) 
+      : localNumber;
     
     // Copy order details to clipboard first (always do this for easy pasting)
     if (includeOrderDetails) {
@@ -157,13 +162,17 @@ ${paymentMethod ? `Account: ${paymentMethod.account_number}` : ''}`;
       });
     }
     
-    // Use viber://keypad?number= format - most reliable for opening Viber
-    // This opens Viber with the number ready to chat
-    const viberUrl = `viber://keypad?number=${viberNumber}`;
+    // Use viber://chat?number= format with international format
+    // Format: viber://chat?number=COUNTRYCODE+NUMBER (no + sign, no spaces)
+    const viberUrl = `viber://chat?number=${internationalNumber}`;
     
-    // Use window.location.href for better mobile deep link support
-    // This works better than window.open for app deep links
-    window.location.href = viberUrl;
+    // Try to open Viber chat
+    // If it fails, fallback to opening in new window
+    try {
+      window.location.href = viberUrl;
+    } catch (e) {
+      window.open(viberUrl, '_blank');
+    }
   };
 
   const handlePlaceOrder = async () => {

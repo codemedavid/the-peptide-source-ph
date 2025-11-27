@@ -4,10 +4,13 @@ import { MessageCircle, Shield, Heart, Crown } from 'lucide-react';
 const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
   
-  // Viber contact number
-  const viberNumber = '09953928293'; // Philippines number: 09953928293
-  // Use keypad format for better compatibility
-  const viberUrl = `viber://keypad?number=${viberNumber}`;
+  // Viber contact number - convert to international format for deep link
+  const localNumber = '09953928293';
+  const viberNumber = localNumber.startsWith('0') 
+    ? '63' + localNumber.substring(1) 
+    : localNumber;
+  // Use chat format to open chat directly
+  const viberUrl = `viber://chat?number=${viberNumber}`;
 
   return (
     <footer className="bg-gradient-to-r from-gray-800 to-gray-900 text-white">
